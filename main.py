@@ -9,6 +9,14 @@ import math
 # globals
 squaresList = [];
 
+# static class for directional enums
+class Direction:
+    def __init__(self):
+        self.Left = "left"
+        self.Right = "right"
+        self.Up = "up"
+        self.Down = "down"
+
 
 class Square:
     def __init__(self, layout):
@@ -18,8 +26,11 @@ class Square:
         temp = self.layout
         self.layout = temp[1] + temp[2] + temp[3] + temp[0]
 
-    def printDescription(self):
+    def printLongDescription(self):
         print "Square is in orientation TRBL = ", self.layout
+
+    def printShortDescription(self):
+        print self.layout
 
 
 def doCodesMatch(code1, code2):
@@ -29,13 +40,13 @@ def doCodesMatch(code1, code2):
     return False
 
 
-def areCompatible(Square1, Square2, Direction):
-    if Direction == 'right':
+def areCompatible(Square1, Square2, MoveDirection):
+    if MoveDirection == Direction.Left:
         if doCodesMatch(Square1.layout[1], Square2.layout[3]):
             return True
         else:
             return False
-    elif Direction == 'down':
+    elif MoveDirection == Direction.Down:
         if doCodesMatch(Square1.layout[2], Square2.layout[0]):
             return True
         else:
@@ -57,6 +68,10 @@ def initializeSquares():
 
 
 initializeSquares()
-squaresList[1].printDescription()
-
+squaresList[1].printLongDescription()
+print squaresList[1].printShortDescription(), " is compatible with ", squaresList[2].printShortDescription(), "?"
+print "Down", areCompatible((squaresList[1], squaresList[2], Direction.Down))
+print "Left", areCompatible((squaresList[1], squaresList[2], Direction.Left))
+print "Right", areCompatible((squaresList[1], squaresList[2], Direction.Right))
+print "Up", areCompatible((squaresList[1], squaresList[2], Direction.Up))
 
