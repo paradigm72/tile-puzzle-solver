@@ -11,12 +11,10 @@ squaresList = [];
 
 # static class for directional enums
 class Direction:
-    def __init__(self):
-        self.Left = "left"
-        self.Right = "right"
-        self.Up = "up"
-        self.Down = "down"
-
+    Left = "Left"
+    Right = "Right"
+    Down = "Down"
+    Up = "Up"
 
 class Square:
     def __init__(self, layout):
@@ -70,8 +68,8 @@ def initializeSquares():
 initializeSquares()
 squaresList[1].printLongDescription()
 print squaresList[1].printShortDescription(), " is compatible with ", squaresList[2].printShortDescription(), "?"
-print "Down", areCompatible((squaresList[1], squaresList[2], Direction.Down))
-print "Left", areCompatible((squaresList[1], squaresList[2], Direction.Left))
-print "Right", areCompatible((squaresList[1], squaresList[2], Direction.Right))
-print "Up", areCompatible((squaresList[1], squaresList[2], Direction.Up))
+print "Down", areCompatible(squaresList[1], squaresList[2], Direction.Down)
+print "Left", areCompatible(squaresList[1], squaresList[2], Direction.Left)
+print "Right", areCompatible(squaresList[1], squaresList[2], Direction.Right)
+print "Up", areCompatible(squaresList[1], squaresList[2], Direction.Up)
 
