@@ -27,8 +27,8 @@ class Square:
     def printLongDescription(self):
         print "Square is in orientation TRBL = ", self.layout
 
-    def printShortDescription(self):
-        print self.layout
+    def getShortDescription(self):
+        return self.layout
 
 
 def doCodesMatch(code1, code2):
@@ -67,7 +67,7 @@ def initializeSquares():
 
 initializeSquares()
 squaresList[1].printLongDescription()
-print squaresList[1].printShortDescription(), " is compatible with ", squaresList[2].printShortDescription(), "?"
+print squaresList[1].getShortDescription(), " is compatible with ", squaresList[2].getShortDescription(), "?"
 print "Down", areCompatible(squaresList[1], squaresList[2], Direction.Down)
 print "Left", areCompatible(squaresList[1], squaresList[2], Direction.Left)
 print "Right", areCompatible(squaresList[1], squaresList[2], Direction.Right)
