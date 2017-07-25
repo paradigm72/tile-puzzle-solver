@@ -64,12 +64,13 @@ def initializeSquares():
     squaresList.append(Square('4ba1'))
     squaresList.append(Square('4acb'))
 
-
+print doCodesMatch('b','2')
 initializeSquares()
 squaresList[1].printLongDescription()
-print squaresList[1].getShortDescription(), " is compatible with ", squaresList[2].getShortDescription(), "?"
-print "Down", areCompatible(squaresList[1], squaresList[2], Direction.Down)
-print "Left", areCompatible(squaresList[1], squaresList[2], Direction.Left)
-print "Right", areCompatible(squaresList[1], squaresList[2], Direction.Right)
-print "Up", areCompatible(squaresList[1], squaresList[2], Direction.Up)
+for i in range(0,8):
+    print squaresList[i].getShortDescription(), "is compatible with", squaresList[i+1].getShortDescription(), "?"
+    print "Down  :", areCompatible(squaresList[i], squaresList[i+1], Direction.Down)
+    print "Left  :", areCompatible(squaresList[i], squaresList[i+1], Direction.Left)
+    print "Right :", areCompatible(squaresList[i], squaresList[i+1], Direction.Right)
+    print "Up    :", areCompatible(squaresList[i], squaresList[i+1], Direction.Up)
 
