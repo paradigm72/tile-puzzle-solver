@@ -16,6 +16,7 @@ class Direction:
     Down = "Down"
     Up = "Up"
 
+# individual square
 class Square:
     def __init__(self, layout):
         self.layout = layout
@@ -29,6 +30,16 @@ class Square:
 
     def getShortDescription(self):
         return self.layout
+
+# grid of squares
+class SquareGrid:
+    def __init__(self, squaresList):
+        self.grid = [];
+        self.grid[0] = [];
+        self.grid[1] = [];
+        self.grid[2] = [];
+        # append all the squares from squareList in order
+        # how to pass in a key for a unique ordering?
 
 
 def doCodesMatch(code1, code2):
@@ -66,7 +77,7 @@ def initializeSquares():
     squaresList.append(Square('4ba1'))
     squaresList.append(Square('4acb'))
 
-print doCodesMatch('b','2')
+
 initializeSquares()
 squaresList[1].printLongDescription()
 for i in range(0,8):
