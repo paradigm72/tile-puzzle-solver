@@ -31,6 +31,14 @@ class Square:
     def getShortDescription(self):
         return self.layout
 
+    def printMatchingTransposition(self):
+        transposed = getMatchingCode(self.layout[:1])
+        transposed += getMatchingCode(self.layout[1:2])
+        transposed += getMatchingCode(self.layout[2:3])
+        transposed += getMatchingCode(self.layout[3:4])
+        print transposed
+
+
 # grid of squares
 class SquareGrid:
     def __init__(self, squaresList):
@@ -49,6 +57,13 @@ def doCodesMatch(code1, code2):
     if (ord(code1) - 48 == ord(code2)) or (ord(code2) - 48 == ord(code1)):
         return True
     return False
+
+
+def getMatchingCode(code):
+    if (ord(code) > 60):     # if alpha, subtract 48 to get matching number
+        return chr(code - 48)
+    else:   # otherwise numeric, add 48 to get alpha
+        return chr(code + 48)
 
 
 def areCompatible(Square1, Square2, MoveDirection):
