@@ -53,12 +53,22 @@ def doCodesMatch(code1, code2):
 
 def areCompatible(Square1, Square2, MoveDirection):
     if MoveDirection == Direction.Left:
-        if doCodesMatch(Square1.layout[1], Square2.layout[3]):
+        if doCodesMatch(Square1.layout[3], Square2.layout[1]):
             return True
         else:
             return False
     elif MoveDirection == Direction.Down:
         if doCodesMatch(Square1.layout[2], Square2.layout[0]):
+            return True
+        else:
+            return False
+    elif MoveDirection == Direction.Right:
+        if doCodesMatch(Square1.layout[1], Square2.layout[3]):
+            return True
+        else:
+            return False
+    elif MoveDirection == Direction.Up:
+        if doCodesMatch(Square1.layout[0], Square2.layout[2]):
             return True
         else:
             return False
