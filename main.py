@@ -31,12 +31,12 @@ class Square:
     def getShortDescription(self):
         return self.layout
 
-    def printMatchingTransposition(self):
+    def getMatchingTransposition(self):
         transposed = str(getMatchingCode(self.layout[:1]))
         transposed += str(getMatchingCode(self.layout[1:2]))
         transposed += str(getMatchingCode(self.layout[2:3]))
         transposed += str(getMatchingCode(self.layout[3:4]))
-        print transposed
+        return transposed
 
 # grid of squares
 class SquareGrid:
@@ -61,10 +61,10 @@ def doCodesMatch(code1, code2):
 def getMatchingCode(code):
     # code is a char
     if (ord(code) > 60):     # if alpha, subtract 48 to get matching number
-        return ord(code) - 48
+        return chr(ord(code) - 48)
     # code is an int
     else:   # otherwise numeric, add 48 to get alpha
-        return chr(int(code) + 48)
+        return chr(int(code) + 48 + 48)
 
 
 def areCompatible(Square1, Square2, MoveDirection):
@@ -107,7 +107,7 @@ def initializeSquares():
 initializeSquares()
 squaresList[1].printLongDescription()
 for i in range(0,8):
-    print squaresList[i].getShortDescription(), "transposed is", squaresList[i].printMatchingTransposition()
+    print squaresList[i].getShortDescription(), "transposed is", squaresList[i].getMatchingTransposition()
     print squaresList[i].getShortDescription(), "is compatible with", squaresList[i+1].getShortDescription(), "?"
     print "Down  :", areCompatible(squaresList[i], squaresList[i+1], Direction.Down)
     print "Left  :", areCompatible(squaresList[i], squaresList[i+1], Direction.Left)
