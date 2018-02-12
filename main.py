@@ -103,14 +103,25 @@ def initializeSquares():
     squaresList.append(Square('4ba1'))
     squaresList.append(Square('4acb'))
 
+def findMatchInDirection(StartingSquare, MoveDirection):
+    for potentialMatchingSquare in squaresList:
+        if not (potentialMatchingSquare.getShortDescription == StartingSquare.getShortDescription):
+            if (areCompatible(StartingSquare, potentialMatchingSquare, MoveDirection)):
+                print potentialMatchingSquare.getShortDescription(), "is a valid square from ", StartingSquare.getShortDescription(), "going ",MoveDirection
+
+
 
 initializeSquares()
-squaresList[1].printLongDescription()
-for i in range(0,8):
-    print squaresList[i].getShortDescription(), "transposed is", squaresList[i].getMatchingTransposition()
-    print squaresList[i].getShortDescription(), "is compatible with", squaresList[i+1].getShortDescription(), "?"
-    print "Down  :", areCompatible(squaresList[i], squaresList[i+1], Direction.Down)
-    print "Left  :", areCompatible(squaresList[i], squaresList[i+1], Direction.Left)
-    print "Right :", areCompatible(squaresList[i], squaresList[i+1], Direction.Right)
-    print "Up    :", areCompatible(squaresList[i], squaresList[i+1], Direction.Up)
+findMatchInDirection(squaresList[0], Direction.Down)
+findMatchInDirection(squaresList[0], Direction.Up)
+findMatchInDirection(squaresList[0], Direction.Left)
+findMatchInDirection(squaresList[0], Direction.Right)
+#squaresList[1].printLongDescription()
+# for i in range(0,8):
+#     print squaresList[i].getShortDescription(), "transposed is", squaresList[i].getMatchingTransposition()
+#     print squaresList[i].getShortDescription(), "is compatible with", squaresList[i+1].getShortDescription(), "?"
+#     print "Down  :", areCompatible(squaresList[i], squaresList[i+1], Direction.Down)
+#     print "Left  :", areCompatible(squaresList[i], squaresList[i+1], Direction.Left)
+#     print "Right :", areCompatible(squaresList[i], squaresList[i+1], Direction.Right)
+#     print "Up    :", areCompatible(squaresList[i], squaresList[i+1], Direction.Up)
 
