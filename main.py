@@ -108,6 +108,19 @@ def findMatchInDirection(StartingSquare, MoveDirection):
         if not (potentialMatchingSquare.getShortDescription == StartingSquare.getShortDescription):
             if (areCompatible(StartingSquare, potentialMatchingSquare, MoveDirection)):
                 print potentialMatchingSquare.getShortDescription(), "is a valid square from ", StartingSquare.getShortDescription(), "going ",MoveDirection
+                return potentialMatchingSquare
+
+def findAdjacentSquare(StartingSquare, UsedSquares):
+    for MoveDirection in Direction:
+        for potentialMatchingSquare in squaresList:
+            if not #square already used
+                #only finds the first match, but given consumption of the list I think it works
+                nextSquare = findMatchInDirection(StartingSquare, MoveDirection):
+                if nextSquare #is not nothing:
+                    UsedSquares[i]=1
+                    findAdjacentSquare(nextSquare, UsedSquares)
+
+
 
 
 
