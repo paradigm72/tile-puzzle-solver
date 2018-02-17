@@ -20,6 +20,7 @@ class Direction:
 class Square:
     def __init__(self, layout):
         self.layout = layout
+        self.visited = False
 
     def rotateClockWise(self):
         temp = self.layout
@@ -37,6 +38,7 @@ class Square:
         transposed += str(getMatchingCode(self.layout[2:3]))
         transposed += str(getMatchingCode(self.layout[3:4]))
         return transposed
+
 
 # grid of squares
 class SquareGrid:
@@ -109,26 +111,30 @@ def findMatchInDirection(StartingSquare, MoveDirection):
             if (areCompatible(StartingSquare, potentialMatchingSquare, MoveDirection)):
                 print potentialMatchingSquare.getShortDescription(), "is a valid square from ", StartingSquare.getShortDescription(), "going ",MoveDirection
                 return potentialMatchingSquare
+    return None
 
-def findAdjacentSquare(StartingSquare, UsedSquares):
-    for MoveDirection in Direction:
-        for potentialMatchingSquare in squaresList:
-            if not #square already used
-                #only finds the first match, but given consumption of the list I think it works
-                nextSquare = findMatchInDirection(StartingSquare, MoveDirection):
-                if nextSquare #is not nothing:
-                    UsedSquares[i]=1
-                    findAdjacentSquare(nextSquare, UsedSquares)
-
-
-
+def findAdjacentSquare(StartingSquare, CurrentDepth):
+    print "Currently at depth ",CurrentDepth
+    StartingSquare.visited = True
+    for MoveDirection in ["Left", "Right", "Down", "Up"]:
+        #only finds the first match, but given consumption of the list I think it works
+        nextSquare = findMatchInDirection(StartingSquare, MoveDirection)
+        if (nextSquare != None):
+            if (not nextSquare.visited):
+                findAdjacentSquare(nextSquare, CurrentDepth + 1)
+    #unwind the recursion
+    StartingSquare.visited = False
 
 
 initializeSquares()
-findMatchInDirection(squaresList[0], Direction.Down)
-findMatchInDirection(squaresList[0], Direction.Up)
-findMatchInDirection(squaresList[0], Direction.Left)
-findMatchInDirection(squaresList[0], Direction.Right)
+findAdjacentSquare(squaresList[0], 1)
+
+
+
+#findMatchInDirection(squaresList[0], Direction.Down)
+#findMatchInDirection(squaresList[0], Direction.Up)
+#findMatchInDirection(squaresList[0], Direction.Left)
+#findMatchInDirection(squaresList[0], Direction.Right)
 #squaresList[1].printLongDescription()
 # for i in range(0,8):
 #     print squaresList[i].getShortDescription(), "transposed is", squaresList[i].getMatchingTransposition()
