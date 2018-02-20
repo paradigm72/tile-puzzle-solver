@@ -109,25 +109,34 @@ def findMatchInDirection(StartingSquare, MoveDirection):
     for potentialMatchingSquare in squaresList:
         if not (potentialMatchingSquare.getShortDescription == StartingSquare.getShortDescription):
             if (areCompatible(StartingSquare, potentialMatchingSquare, MoveDirection)):
-                print potentialMatchingSquare.getShortDescription(), "is a valid square from ", StartingSquare.getShortDescription(), "going ",MoveDirection
+                #print potentialMatchingSquare.getShortDescription(), "is a valid square from", StartingSquare.getShortDescription(), "going",MoveDirection
                 return potentialMatchingSquare
     return None
 
 def findAdjacentSquare(StartingSquare, CurrentDepth):
-    print "Currently at depth ",CurrentDepth
     StartingSquare.visited = True
     for MoveDirection in ["Left", "Right", "Down", "Up"]:
         #only finds the first match, but given consumption of the list I think it works
         nextSquare = findMatchInDirection(StartingSquare, MoveDirection)
         if (nextSquare != None):
             if (not nextSquare.visited):
+                print "[",StartingSquare.getShortDescription(),":",CurrentDepth,"] ->",MoveDirection
                 findAdjacentSquare(nextSquare, CurrentDepth + 1)
+                print "Unwind"
     #unwind the recursion
     StartingSquare.visited = False
 
 
 initializeSquares()
 findAdjacentSquare(squaresList[0], 1)
+print "------Next Square------"
+findAdjacentSquare(squaresList[1], 1)
+print "------Next Square------"
+findAdjacentSquare(squaresList[2], 1)
+print "------Next Square------"
+findAdjacentSquare(squaresList[3], 1)
+print "------Next Square------"
+findAdjacentSquare(squaresList[4], 1)
 
 
 
