@@ -128,16 +128,9 @@ def findAdjacentSquare(StartingSquare, CurrentDepth):
 
 
 initializeSquares()
-findAdjacentSquare(squaresList[0], 1)
-print "------Next Square------"
-findAdjacentSquare(squaresList[1], 1)
-print "------Next Square------"
-findAdjacentSquare(squaresList[2], 1)
-print "------Next Square------"
-findAdjacentSquare(squaresList[3], 1)
-print "------Next Square------"
-findAdjacentSquare(squaresList[4], 1)
-
+for potentialStartSquare in squaresList:
+    findAdjacentSquare(potentialStartSquare, 1)
+    print "-----Next Square-----"
 
 
 #findMatchInDirection(squaresList[0], Direction.Down)
