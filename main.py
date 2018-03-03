@@ -113,28 +113,30 @@ def findMatchInDirection(StartingSquare, MoveDirection):
                 return potentialMatchingSquare
     return None
 
-def findAdjacentSquare(StartingSquare, CurrentDepth):  #, GridState):
+def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, MoveDirection):
     StartingSquare.visited = True
+    PathString = PathString + "--" + MoveDirection + "-->" + StartingSquare.getShortDescription()
+    if (CurrentDepth == 1):
+        PathString = PathString[5:]
     if (CurrentDepth == 9):
-        print "Reached depth 9!"
+        print "Reached depth 9!: ",PathString
     for MoveDirection in ["Left", "Right", "Down", "Up"]:
         #only finds the first match, but given consumption of the list I think it works
         nextSquare = findMatchInDirection(StartingSquare, MoveDirection)
         if (nextSquare != None):
             if (not nextSquare.visited):
                 print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
-                findAdjacentSquare(nextSquare, CurrentDepth + 1)  #, GridState)
+                findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
                 print "Unwind"
     #unwind the recursion
     StartingSquare.visited = False
+    PathString = PathString[:4]
 
 
 initializeSquares()
-# Don't think I like this 2D grid, because we aren't starting in the top left anyway. Maybe better
-# to restrict number of moves in a certain direction?
-# gridState = [[0 for y in xrange(2)] for x in xrange(2)]
+
 for potentialStartSquare in squaresList:
-    findAdjacentSquare(potentialStartSquare, 1)
+    findAdjacentSquare(potentialStartSquare, 1, "", "")
     print "-----Next Square-----"
 
 
