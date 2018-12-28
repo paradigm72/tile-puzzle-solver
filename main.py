@@ -8,6 +8,7 @@ import math
 
 # globals
 squaresList = [];
+maxDepthReached = 0;
 
 # static class for directional enums
 class Direction:
@@ -93,6 +94,9 @@ def areCompatible(Square1, Square2, MoveDirection):
     else:
         return False
 
+def initialize():
+    initializeSquares()
+    maxDepthReached = 0
 
 def initializeSquares():
     squaresList.append(Square('dcb2'))
@@ -115,9 +119,10 @@ def findMatchInDirection(StartingSquare, MoveDirection):
 
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, MoveDirection):
     StartingSquare.visited = True
+    global maxDepthReached
     PathString = PathString + "--" + MoveDirection + "-->" + StartingSquare.getShortDescription()
     if (CurrentDepth == 1):
-        PathString = PathString[5:]
+        PathString = PathString[5:]   #wipe the array
     if (CurrentDepth == 9):
         print "Reached depth 9!: ",PathString
     for MoveDirection in ["Left", "Right", "Down", "Up"]:
@@ -127,13 +132,14 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, MoveDirection):
             if (not nextSquare.visited):
                 print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
                 findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
+                maxDepthReached = max(CurrentDepth, maxDepthReached)
                 print "Unwind"
     #unwind the recursion
     StartingSquare.visited = False
     PathString = PathString[:4]
 
 
-initializeSquares()
+initialize()
 
 for potentialStartSquare in squaresList:
     findAdjacentSquare(potentialStartSquare, 1, "", "")
@@ -152,4 +158,5 @@ for potentialStartSquare in squaresList:
 #     print "Left  :", areCompatible(squaresList[i], squaresList[i+1], Direction.Left)
 #     print "Right :", areCompatible(squaresList[i], squaresList[i+1], Direction.Right)
 #     print "Up    :", areCompatible(squaresList[i], squaresList[i+1], Direction.Up)
+print "Max Depth reached was: ",maxDepthReached
 
