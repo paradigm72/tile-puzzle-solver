@@ -9,6 +9,7 @@ import math
 # globals
 squaresList = [];
 maxDepthReached = 0;
+maxDepthPath = "";
 
 # static class for directional enums
 class Direction:
@@ -119,7 +120,6 @@ def findMatchInDirection(StartingSquare, MoveDirection):
 
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, MoveDirection):
     StartingSquare.visited = True
-    global maxDepthReached
     PathString = PathString + "--" + MoveDirection + "-->" + StartingSquare.getShortDescription()
     if (CurrentDepth == 1):
         PathString = PathString[5:]   #wipe the array
@@ -132,15 +132,21 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, MoveDirection):
             if (not nextSquare.visited):
                 print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
                 findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
-                maxDepthReached = max(CurrentDepth, maxDepthReached)
+                if CurrentDepth > maxDepthReached:
+                        recordLongestPath(CurrentDepth, PathString)
                 print "Unwind"
     #unwind the recursion
     StartingSquare.visited = False
     PathString = PathString[:4]
 
+def recordLongestPath(CurrentDepth, PathString):
+    global maxDepthReached
+    global maxDepthPath
+    maxDepthReached = CurrentDepth
+    maxDepthPath = PathString
 
+# implementation
 initialize()
-
 for potentialStartSquare in squaresList:
     findAdjacentSquare(potentialStartSquare, 1, "", "")
     print "-----Next Square-----"
@@ -158,5 +164,5 @@ for potentialStartSquare in squaresList:
 #     print "Left  :", areCompatible(squaresList[i], squaresList[i+1], Direction.Left)
 #     print "Right :", areCompatible(squaresList[i], squaresList[i+1], Direction.Right)
 #     print "Up    :", areCompatible(squaresList[i], squaresList[i+1], Direction.Up)
-print "Max Depth reached was: ",maxDepthReached
+print "Max Depth reached was: ",maxDepthReached,", Path: ",maxDepthPath
 
