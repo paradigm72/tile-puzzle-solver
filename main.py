@@ -18,6 +18,16 @@ class Direction:
     Down = "Down"
     Up = "Up"
 
+def OppositeDirection(testDir):
+    if (testDir == Direction.Left):
+        return Direction.Right
+    if (testDir == Direction.Right):
+        return Direction.Left
+    if (testDir == Direction.Up):
+        return Direction.Down
+    if (testDir == Direction.Down):
+        return  Direction.Up
+
 # individual square
 class Square:
     def __init__(self, layout):
@@ -61,6 +71,10 @@ def doCodesMatch(code1, code2):
         return True
     return False
 
+def isInverseDirection(dir1, dir2):
+    if (OppositeDirection(dir1) == dir2):
+        return True
+    return False
 
 def getMatchingCode(code):
     # code is a char
@@ -118,23 +132,24 @@ def findMatchInDirection(StartingSquare, MoveDirection):
                 return potentialMatchingSquare
     return None
 
-def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, MoveDirection):
+def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirection):
     StartingSquare.visited = True
-    PathString = PathString + "--" + MoveDirection + "-->" + StartingSquare.getShortDescription()
+    PathString = PathString + "--" + PrevMoveDirection + "-->" + StartingSquare.getShortDescription()
     if (CurrentDepth == 1):
         PathString = PathString[5:]   #wipe the array
     if (CurrentDepth == 9):
         print "Reached depth 9!: ",PathString
     for MoveDirection in ["Left", "Right", "Down", "Up"]:
-        #only finds the first match, but given consumption of the list I think it works
-        nextSquare = findMatchInDirection(StartingSquare, MoveDirection)
-        if (nextSquare != None):
-            if (not nextSquare.visited):
-                print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
-                findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
-                if CurrentDepth > maxDepthReached:
-                        recordLongestPath(CurrentDepth, PathString)
-                print "Unwind"
+        if (not (isInverseDirection(MoveDirection, PrevMoveDirection))):
+            #only finds the first match, but given consumption of the list I think it works
+            nextSquare = findMatchInDirection(StartingSquare, MoveDirection)
+            if (nextSquare != None):
+                if (not nextSquare.visited):
+                    print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
+                    findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
+                    if CurrentDepth > maxDepthReached:
+                            recordLongestPath(CurrentDepth, PathString)
+                    print "Unwind"
     #unwind the recursion
     StartingSquare.visited = False
     PathString = PathString[:4]
@@ -150,19 +165,5 @@ initialize()
 for potentialStartSquare in squaresList:
     findAdjacentSquare(potentialStartSquare, 1, "", "")
     print "-----Next Square-----"
-
-
-#findMatchInDirection(squaresList[0], Direction.Down)
-#findMatchInDirection(squaresList[0], Direction.Up)
-#findMatchInDirection(squaresList[0], Direction.Left)
-#findMatchInDirection(squaresList[0], Direction.Right)
-#squaresList[1].printLongDescription()
-# for i in range(0,8):
-#     print squaresList[i].getShortDescription(), "transposed is", squaresList[i].getMatchingTransposition()
-#     print squaresList[i].getShortDescription(), "is compatible with", squaresList[i+1].getShortDescription(), "?"
-#     print "Down  :", areCompatible(squaresList[i], squaresList[i+1], Direction.Down)
-#     print "Left  :", areCompatible(squaresList[i], squaresList[i+1], Direction.Left)
-#     print "Right :", areCompatible(squaresList[i], squaresList[i+1], Direction.Right)
-#     print "Up    :", areCompatible(squaresList[i], squaresList[i+1], Direction.Up)
 print "Max Depth reached was: ",maxDepthReached,", Path: ",maxDepthPath
 
