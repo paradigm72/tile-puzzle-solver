@@ -20,6 +20,12 @@ def testOppositeDirection():
     outcome = outcome & assertThat(main.OppositeDirection(main.Direction.Up) == main.Direction.Down)
     print "Test opposite direction: ",resultToDisplay(outcome)
 
+def testInverseDirection():
+    outcome = True
+    outcome = outcome & assertThat(main.isInverseDirection(main.Direction.Right,main.Direction.Left) == True)
+    outcome = outcome & assertThat(main.isInverseDirection(main.Direction.Up,main.Direction.Down) == True)
+    print "Test inverse direction: ",resultToDisplay(outcome)
+
 def testGetMatchingCode():
     outcome = True
     outcome = outcome & assertThat(main.getMatchingCode("c") == "3")
@@ -32,4 +38,5 @@ def testGetMatchingCode():
 print "Running unit tests..."
 testOppositeDirection()
 testGetMatchingCode()
+testInverseDirection()
 print "Done running unit tests."
