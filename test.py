@@ -22,9 +22,19 @@ def testGetMatchingCode():
     outcome = outcome & assertThat(main.getMatchingCode("3") == "c")
     print "Test get matching codes: ",resultToDisplay(outcome)
 
+# test the Square class
+def testSquareInit():
+    testSquare = main.Square('abcd')
+    outcome = True
+    outcome = outcome & assertThat(testSquare.layout == 'abcd')
+    outcome = outcome & assertThat(testSquare.visited == False)
+    print "Test square initialization: ",resultToDisplay(outcome)
+
+
 # run the tests
 print "Running unit tests..."
 testOppositeDirection()
 testGetMatchingCode()
 testInverseDirection()
+testSquareInit()
 print "Done running unit tests."
