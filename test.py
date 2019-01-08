@@ -1,19 +1,7 @@
 import main
+from testFramework import assertThat,resultToDisplay
 
-# framework
-def assertThat(expression):
-    if (expression != True):
-       print "Test failed: ",expression," was false"
-       return False
-    return True
-
-def resultToDisplay(outcome):
-    if (outcome == True):
-        return "Pass"
-    else:
-        return "Fail"
-
-# define the tests
+# generic tests
 def testOppositeDirection():
     outcome = True
     outcome = outcome & assertThat(main.OppositeDirection(main.Direction.Left) == main.Direction.Right)
