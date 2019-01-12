@@ -1,6 +1,9 @@
+import main
+#TODO how to break this dependency
+
 # framework
 def assertThat(expression):
-    if (expression != True):
+    if (eval(expression) != True):
         print "Test failed: ",expression," was false"
         return False
     return True
