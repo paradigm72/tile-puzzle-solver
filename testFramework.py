@@ -1,5 +1,4 @@
 import main
-#TODO how to break this dependency
 
 # framework
 def assertThat(expression):
