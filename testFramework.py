@@ -1,9 +1,9 @@
 import main
 
 # framework
-def assertThat(expression):
-    if (eval(expression) != True):
-        print "Test failed: ",expression," was false"
+def assertThat(evalResult, rawExpression):
+    if (evalResult != True):
+        print "Test failed: ",rawExpression," was false"
         return False
     return True
 
