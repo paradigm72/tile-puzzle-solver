@@ -4,8 +4,7 @@ from testFramework import assertThat,resultToDisplay
 
 # dependency router, so the test framework doesn't need to
 # reference any particular project
-# TODO needs to accept something a list of objects, so it can reference e.g. testSquare...
-def routeAssertion(expression):
+def routeAssertion(expression, objectStore = []):
     outcome = True
     return assertThat(eval(expression), expression)
 
@@ -32,11 +31,12 @@ def testGetMatchingCode():
 
 # test the Square class
 def testSquareInit():
-    testSquare = main.Square('abcd')
+    objectStore = [];
+    objectStore.append(main.Square('abcd'));
     outcome = True
-    outcome = outcome & routeAssertion("testSquare.layout == \'abcd\'")
-    outcome = outcome & routeAssertion("testSquare.visited == False")
-    outcome = outcome & routeAssertion("testSquare.getShortDescription() == \'abcd\'")
+    outcome = outcome & routeAssertion("objectStore[0].layout == \'abcd\'", objectStore)
+    outcome = outcome & routeAssertion("objectStore[0].visited == False", objectStore)
+    outcome = outcome & routeAssertion("objectStore[0].getShortDescription() == \'abcd\'", objectStore)
     print "Test square initialization: ",resultToDisplay(outcome)
 
 
