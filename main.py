@@ -52,17 +52,6 @@ class Square:
         return transposed
 
 
-# grid of squares
-class SquareGrid:
-    def __init__(self, squaresList):
-        self.grid = [];
-        self.grid[0] = [];
-        self.grid[1] = [];
-        self.grid[2] = [];
-        # append all the squares from squareList in order
-        # how to pass in a key for a unique ordering?
-
-
 def doCodesMatch(code1, code2):
     # 48 is the ASCII offset between '1' and 'a'
     ascii1 = ord(code1)

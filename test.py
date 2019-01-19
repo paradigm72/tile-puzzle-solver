@@ -29,6 +29,13 @@ def testGetMatchingCode():
     outcome = outcome & routeAssertion("main.getMatchingCode(\"3\") == \"c\"")
     print "Test get matching codes: ",resultToDisplay(outcome)
 
+def testDoCodesMatch():
+    outcome = True
+    outcome = outcome & routeAssertion("main.doCodesMatch(\"2\",\"b\")")
+    outcome = outcome & routeAssertion("main.doCodesMatch(\"b\",\"2\")")
+    outcome = outcome & routeAssertion("main.doCodesMatch(\"5\",\"e\")")
+    print "Test 'do codes match'",resultToDisplay(outcome)
+
 # test the Square class
 def testSquareInit():
     objectStore = [];
@@ -44,6 +51,7 @@ def testSquareInit():
 print "Running unit tests..."
 testOppositeDirection()
 testGetMatchingCode()
+testDoCodesMatch()
 testInverseDirection()
 testSquareInit()
 print "Done running unit tests."
