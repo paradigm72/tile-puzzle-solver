@@ -46,6 +46,15 @@ def testSquareInit():
     outcome = outcome & routeAssertion("objectStore[0].getShortDescription() == \'abcd\'", objectStore)
     print "Test square initialization: ",resultToDisplay(outcome)
 
+def testSquareCompatibility():
+    objectStore = [];
+    objectStore.append(main.Square('abaa'));
+    objectStore.append(main.Square('4442'));
+    outcome = True
+    outcome = outcome & routeAssertion("main.areCompatible(objectStore[0],objectStore[1],main.Direction.Right)",objectStore)
+    print "Test square compatibility: ",resultToDisplay(outcome)
+
+
 
 # run the tests
 print "Running unit tests..."
@@ -54,4 +63,5 @@ testGetMatchingCode()
 testDoCodesMatch()
 testInverseDirection()
 testSquareInit()
+testSquareCompatibility()
 print "Done running unit tests."
