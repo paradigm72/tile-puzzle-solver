@@ -21,14 +21,6 @@ def testInverseDirection():
     outcome = outcome & routeAssertion("main.isInverseDirection(main.Direction.Up,main.Direction.Down) == True")
     print "Test inverse direction: ",resultToDisplay(outcome)
 
-def testGetMatchingCode():
-    outcome = True
-    outcome = outcome & routeAssertion("main.getMatchingCode(\"c\") == \"3\"")
-    outcome = outcome & routeAssertion("main.getMatchingCode(\"a\") == \"1\"")
-    outcome = outcome & routeAssertion("main.getMatchingCode(\"1\") == \"a\"")
-    outcome = outcome & routeAssertion("main.getMatchingCode(\"3\") == \"c\"")
-    print "Test get matching codes: ",resultToDisplay(outcome)
-
 def testDoCodesMatch():
     outcome = True
     outcome = outcome & routeAssertion("main.doCodesMatch(\"2\",\"b\")")
@@ -53,6 +45,14 @@ def testSquareCompatibility():
     outcome = True
     outcome = outcome & routeAssertion("main.areCompatible(objectStore[0],objectStore[1],main.Direction.Right)",objectStore)
     print "Test square compatibility: ",resultToDisplay(outcome)
+
+def testGetMatchingCode():
+    outcome = True
+    outcome = outcome & routeAssertion("main.Square.getMatchingCode(\"c\") == \"3\"")
+    outcome = outcome & routeAssertion("main.Square.getMatchingCode(\"a\") == \"1\"")
+    outcome = outcome & routeAssertion("main.Square.getMatchingCode(\"1\") == \"a\"")
+    outcome = outcome & routeAssertion("main.Square.getMatchingCode(\"3\") == \"c\"")
+    print "Test get matching codes: ",resultToDisplay(outcome)
 
 
 
