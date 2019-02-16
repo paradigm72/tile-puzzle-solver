@@ -44,6 +44,8 @@ def testSquareCompatibility():
     objectStore.append(main.Square('4442'));
     outcome = True
     outcome = outcome & routeAssertion("main.areCompatible(objectStore[0],objectStore[1],main.Direction.Right)",objectStore)
+    outcome = outcome & routeAssertion("not (main.areCompatible(objectStore[0],objectStore[1],7))",objectStore)
+    outcome = outcome & routeAssertion("not (main.areCompatible(objectStore[0],objectStore[1],main.Direction.Left))",objectStore)
     print "Test square compatibility: ",resultToDisplay(outcome)
 
 def testGetMatchingCode():
