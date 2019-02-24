@@ -81,32 +81,36 @@ def initializeSquares():
     squaresList.append(Square('4ba1'))
     squaresList.append(Square('4acb'))
 
-def findMatchInDirection(StartingSquare, MoveDirection):
+def findAllMatchesInDirection(StartingSquare, MoveDirection):
+    matchesArray = []
     for potentialMatchingSquare in squaresList:
         if not (potentialMatchingSquare.getShortDescription == StartingSquare.getShortDescription):
             if (areCompatible(StartingSquare, potentialMatchingSquare, MoveDirection)):
-                #print potentialMatchingSquare.getShortDescription(), "is a valid square from", StartingSquare.getShortDescription(), "going",MoveDirection
-                return potentialMatchingSquare
-    return None
+                matchesArray.append(potentialMatchingSquare)
+    return matchesArray
 
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirection):
     StartingSquare.visited = True
     PathString = PathString + "--" + PrevMoveDirection + "-->" + StartingSquare.getShortDescription()
+    # bookkeeping to end the recursion if we finished, or we've unwound all the way
     if (CurrentDepth == 1):
         PathString = PathString[5:]   #wipe the array
     if (CurrentDepth == 9):
         print "Reached depth 9!: ",PathString
+    if CurrentDepth > maxDepthReached:
+        recordLongestPath(CurrentDepth, PathString)
+    # the recursion loop
     for MoveDirection in ["Left", "Right", "Down", "Up"]:
         if (not (isInverseDirection(MoveDirection, PrevMoveDirection))):
-            #only finds the first match, but given consumption of the list I think it works
-            nextSquare = findMatchInDirection(StartingSquare, MoveDirection)
-            if (nextSquare != None):
-                if (not nextSquare.visited):
-                    print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
-                    findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
-                    if CurrentDepth > maxDepthReached:
-                            recordLongestPath(CurrentDepth, PathString)
-                    print "Unwind"
+            # get a list of all matching squares that would work for the given direction, then go that way
+            nextSquaresToMoveTo = findAllMatchesInDirection(StartingSquare, MoveDirection)
+            for nextSquare in nextSquaresToMoveTo:
+                if (nextSquare != None):
+                    if (not nextSquare.visited):
+                        print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
+                        findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
+
+                        print "Unwind"
     #unwind the recursion
     StartingSquare.visited = False
     PathString = PathString[:4]
