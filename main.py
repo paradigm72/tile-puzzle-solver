@@ -109,11 +109,15 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
                     if (not nextSquare.visited):
                         print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
                         findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
-
                         print "Unwind"
     #unwind the recursion
     StartingSquare.visited = False
     PathString = PathString[:4]
+
+def isPathFullyInBounds(PathString):
+    # count the occurrences of each of Left, Right, Down, Up in the string
+    # if abs(Left-Right) > 2 or abs(Down-Up) > 2, we are out of bounds
+    return True
 
 def recordLongestPath(CurrentDepth, PathString):
     global maxDepthReached
