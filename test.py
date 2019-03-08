@@ -28,6 +28,14 @@ def testDoCodesMatch():
     outcome = outcome & routeAssertion("main.doCodesMatch(\"5\",\"e\")")
     print "Test 'do codes match'",resultToDisplay(outcome)
 
+def testIsPathFullyInBounds():
+    outcome = True
+    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Left,Left,Left\") == False")
+    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Left,Left,Right\") == True")
+    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Up,Down,Left,Right\") == True")
+    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Up,Up,Up,Up,Down,Left\") == False")
+    print "Test 'is path fully in bounds'",resultToDisplay(outcome)
+
 # test the Square class
 def testSquareInit():
     objectStore = [];
@@ -63,6 +71,7 @@ print "Running unit tests..."
 testOppositeDirection()
 testGetMatchingCode()
 testDoCodesMatch()
+testIsPathFullyInBounds()
 testInverseDirection()
 testSquareInit()
 testSquareCompatibility()
