@@ -34,6 +34,7 @@ def testIsPathFullyInBounds():
     outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Left,Left,Right\") == True")
     outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Up,Down,Left,Right\") == True")
     outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Up,Up,Up,Up,Down,Left\") == False")
+    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Up,Up,Up,Up,Down,Down,Down,Left\") == False")
     print "Test 'is path fully in bounds'",resultToDisplay(outcome)
 
 # test the Square class

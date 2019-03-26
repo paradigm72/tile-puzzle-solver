@@ -105,7 +105,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
             # get a list of all matching squares that would work for the given direction, then go that way
             nextSquaresToMoveTo = findAllMatchesInDirection(StartingSquare, MoveDirection)
             for nextSquare in nextSquaresToMoveTo:
-                if (nextSquare != None):
+                if (nextSquare != None) & (isPathFullyInBounds(PathString)):
                     if (not nextSquare.visited):
                         print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
                         findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
@@ -121,6 +121,8 @@ def isPathFullyInBounds(PathString):
         return False
     elif abs(PathString.count('Up') - PathString.count('Down')) > 2:
         return False
+    # this doesn't quite do it, because we need to account for the max width
+    # e.g. can't have 3 Rights in a row, no matter what the final abs() is
     return True
 
 def recordLongestPath(CurrentDepth, PathString):
