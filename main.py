@@ -115,14 +115,14 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
     PathString = PathString[:4]
 
 def isPathFullyInBounds(PathString):
-    # count the occurrences of each of Left, Right, Down, Up in the string
+    # for each substring, not just the entire string (because we could leave the bounds and come back in),
+    for each substring-by-comma in PathString:
+    # count the occurrences of each of Left, Right, Down, Up in the substring
     # if abs(Left-Right) > 2 or abs(Down-Up) > 2, we are out of bounds
-    if abs(PathString.count('Left') - PathString.count('Right')) > 2:
-        return False
+        if abs(PathString.count('Left') - PathString.count('Right')) > 2:
+            return False
     elif abs(PathString.count('Up') - PathString.count('Down')) > 2:
-        return False
-    # this doesn't quite do it, because we need to account for the max width
-    # e.g. can't have 3 Rights in a row, no matter what the final abs() is
+    return False
     return True
 
 def recordLongestPath(CurrentDepth, PathString):
