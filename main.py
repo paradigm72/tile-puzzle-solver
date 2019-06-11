@@ -91,10 +91,10 @@ def findAllMatchesInDirection(StartingSquare, MoveDirection):
 
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirection):
     StartingSquare.visited = True
-    PathString = PathString + "--" + PrevMoveDirection + "-->" + StartingSquare.getShortDescription()
+    PathString = PathString + "-->" + PrevMoveDirection + "-->" + StartingSquare.getShortDescription()
     # bookkeeping to end the recursion if we finished, or we've unwound all the way
     if (CurrentDepth == 1):
-        PathString = PathString[5:]   #wipe the array
+        PathString = PathString[6:]   #wipe the array
     if (CurrentDepth == 9):
         print "Reached depth 9!: ",PathString
     if CurrentDepth > maxDepthReached:
@@ -107,15 +107,20 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
             for nextSquare in nextSquaresToMoveTo:
                 if (nextSquare != None) & (isPathFullyInBounds(PathString)):
                     if (not nextSquare.visited):
-                        print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
+                        # print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
                         findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
-                        print "Unwind"
+                        # print "Unwind"
     #unwind the recursion
     StartingSquare.visited = False
-    PathString = PathString[:4]
+    PathString = PathString[:5]
 
+# PathString is in a format like 4acb-->Up-->31db-->Right-->243a-->Right-->2c1d-->Up-->dcb2-->Left-->3b4a
 def isPathFullyInBounds(PathString):
-    PathArray = PathString.split(",")
+    print "Checking path: ",PathString
+    PathArray = PathString.split("-->")
+    print "Split array: ",PathArray
+    PathArray = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), PathArray)
+    print "Filtered array: ",PathArray
     horizontalCounter = 0
     verticalCounter = 0
     for strDirection in PathArray:
