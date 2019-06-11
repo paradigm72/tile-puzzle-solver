@@ -30,11 +30,11 @@ def testDoCodesMatch():
 
 def testIsPathFullyInBounds():
     outcome = True
-    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Left,Left,Left\") == False")
-    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Left,Left,Right\") == True")
-    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Up,Down,Left,Right\") == True")
-    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Up,Up,Up,Up,Down,Left\") == False")
-    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Up,Up,Up,Up,Down,Down,Down,Left\") == False")
+    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"xxxx-->Left-->xxxx-->Left-->xxxx-->Left-->xxxx\") == False")
+    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"xxxx-->Left-->xxxx-->Left-->xxxx-->Right-->xxxx\") == True")
+    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"xxxx-->Up-->xxxx-->Down-->xxxx-->Left-->xxxx-->Right-->xxxx\") == True")
+    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"xxxx-->Up-->xxxx-->Up-->xxxx-->Up-->xxxx-->Down-->xxxx-->Right-->xxxx\") == False")
+    outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Up-->xxxx-->Up-->xxxx-->Up-->xxxx-->Up-->xxxx-->Down-->xxxx-->Down-->xxxx-->Down-->xxxx-->Left\") == False")
     print "Test 'is path fully in bounds'",resultToDisplay(outcome)
 
 # test the Square class
