@@ -116,11 +116,11 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
 
 # PathString is in a format like 4acb-->Up-->31db-->Right-->243a-->Right-->2c1d-->Up-->dcb2-->Left-->3b4a
 def isPathFullyInBounds(PathString):
-    print "Checking path: ",PathString
+    # print "Checking path: ",PathString
     PathArray = PathString.split("-->")
-    print "Split array: ",PathArray
+    # print "Split array: ",PathArray
     PathArray = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), PathArray)
-    print "Filtered array: ",PathArray
+    # print "Filtered array: ",PathArray
     horizontalCounter = 0
     verticalCounter = 0
     for strDirection in PathArray:
@@ -135,7 +135,9 @@ def isPathFullyInBounds(PathString):
             verticalCounter = verticalCounter - 1
         # if at any point, we've strayed more than 2 from the origin, we're out of bounds
         if ((abs(horizontalCounter) > 2) or (abs(verticalCounter) > 2)):
+            # print "Path fell out of bounds"
             return False
+    # print "Path did not violate the bounds"
     return True
 
 def recordLongestPath(CurrentDepth, PathString):
@@ -148,6 +150,6 @@ def recordLongestPath(CurrentDepth, PathString):
 initialize()
 for potentialStartSquare in squaresList:
     findAdjacentSquare(potentialStartSquare, 1, "", "")
-    print "-----Next Square-----"
+    print "-----Next Starting Square...-----"
 print "Max Depth reached was: ",maxDepthReached,", Path: ",maxDepthPath
 
