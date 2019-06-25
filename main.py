@@ -121,22 +121,30 @@ def isPathFullyInBounds(PathString):
     # print "Split array: ",PathArray
     PathArray = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), PathArray)
     # print "Filtered array: ",PathArray
-    horizontalCounter = 0
-    verticalCounter = 0
-    for strDirection in PathArray:
-        # adjust the appropriate counter
-        if strDirection == "Left":
-            horizontalCounter = horizontalCounter - 1
-        if strDirection == "Right":
-            horizontalCounter = horizontalCounter + 1
-        if strDirection == "Up":
-            verticalCounter = verticalCounter + 1
-        if strDirection == "Down":
-            verticalCounter = verticalCounter - 1
-        # if at any point, we've strayed more than 2 from the origin, we're out of bounds
-        if ((abs(horizontalCounter) > 2) or (abs(verticalCounter) > 2)):
-            # print "Path fell out of bounds"
-            return False
+    subArrayToTest = []
+    for start in range(1, len(PathArray)):
+        for end in range(start, len(PathArray)):
+            horizontalCounter = 0
+            verticalCounter = 0
+            # grab the slice of the array
+            subArrayToTest = PathArray[start:end]
+            # debug
+            # print "About to test array slice: ",subArrayToTest
+            # loop over each element in the slice
+            for strDirection in subArrayToTest:
+                # adjust the appropriate counter
+                if strDirection == "Left":
+                    horizontalCounter = horizontalCounter - 1
+                if strDirection == "Right":
+                    horizontalCounter = horizontalCounter + 1
+                if strDirection == "Up":
+                    verticalCounter = verticalCounter + 1
+                if strDirection == "Down":
+                    verticalCounter = verticalCounter - 1
+                # if at any point, we've strayed more than 2 from the origin, we're out of bounds
+                if ((abs(horizontalCounter) > 2) or (abs(verticalCounter) > 2)):
+                    # print "Path fell out of bounds"
+                    return False
     # print "Path did not violate the bounds"
     return True
 
