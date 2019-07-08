@@ -122,14 +122,14 @@ def isPathFullyInBounds(PathString):
     PathArray = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), PathArray)
     # print "Filtered array: ",PathArray
     subArrayToTest = []
-    for start in range(1, len(PathArray)):
+    for start in range(0, len(PathArray)):
         for end in range(start, len(PathArray)):
             horizontalCounter = 0
             verticalCounter = 0
             # grab the slice of the array
-            subArrayToTest = PathArray[start:end]
+            subArrayToTest = PathArray[start:end+1]
             # debug
-            print "About to test array slice: ",subArrayToTest
+            print "Path Length=",len(PathArray),"Start=",start,"End=",end,"About to test array slice: ",subArrayToTest
             # loop over each element in the slice
             for strDirection in subArrayToTest:
                 # adjust the appropriate counter
