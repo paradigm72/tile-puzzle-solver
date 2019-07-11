@@ -148,6 +148,13 @@ def isPathFullyInBounds(PathString):
     # print "Path did not violate the bounds"
     return True
 
+def doesPathContainNoOverlap(PathString):
+    # whether the path does not close in on itself
+    # loop through the nodes in PathString
+    # assign x,y coordinates to each
+    # check for duplicates
+    return True
+
 def recordLongestPath(CurrentDepth, PathString):
     global maxDepthReached
     global maxDepthPath
