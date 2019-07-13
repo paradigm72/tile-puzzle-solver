@@ -105,7 +105,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
             # get a list of all matching squares that would work for the given direction, then go that way
             nextSquaresToMoveTo = findAllMatchesInDirection(StartingSquare, MoveDirection)
             for nextSquare in nextSquaresToMoveTo:
-                if (nextSquare != None) & (isPathFullyInBounds(PathString)):
+                if (nextSquare != None) & (isPathFullyInBounds(PathString) & (doesPathContainNoOverlap(PathString))):
                     if (not nextSquare.visited):
                         # print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
                         findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
@@ -148,10 +148,29 @@ def isPathFullyInBounds(PathString):
     # print "Path did not violate the bounds"
     return True
 
+# whether the path does not close in on itself
 def doesPathContainNoOverlap(PathString):
-    # whether the path does not close in on itself
+    PathArray = PathString.split("-->")
+    PathArray = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), PathArray)
     # loop through the nodes in PathString
-    # assign x,y coordinates to each
+    x = 0
+    y = 0
+    OccupiedCoordinates = []
+    for node in PathArray:
+        # check for duplicates, error if so
+        if (str(x) + "," + str(y)) in OccupiedCoordinates:
+            return False
+        # mark this position as occupied
+        OccupiedCoordinates.append(str(x) + "," + str(y))
+        # move in the coordinate space
+        if node == "Left":
+            x = x - 1
+        if node == "Right":
+            x = x + 1
+        if node == "Up":
+            y = y + 1
+        if node == "Down":
+            y = y - 1
     # check for duplicates
     return True
 
