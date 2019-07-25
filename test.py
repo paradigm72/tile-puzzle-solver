@@ -37,6 +37,11 @@ def testIsPathFullyInBounds():
     outcome = outcome & routeAssertion("main.isPathFullyInBounds(\"Up-->xxxx-->Up-->xxxx-->Up-->xxxx-->Up-->xxxx-->Down-->xxxx-->Down-->xxxx-->Down-->xxxx-->Left\") == False")
     print "Test 'is path fully in bounds'",resultToDisplay(outcome)
 
+def testDoesPathContainNoOverlap():
+    outcome = True
+    outcome = outcome & routeAssertion("main.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Right-->xxxx\") == False")
+    print "Test 'does path contain no overlap'",resultToDisplay(outcome)
+
 # test the Square class
 def testSquareInit():
     objectStore = [];
@@ -73,6 +78,7 @@ testOppositeDirection()
 testGetMatchingCode()
 testDoCodesMatch()
 testIsPathFullyInBounds()
+testDoesPathContainNoOverlap()
 testInverseDirection()
 testSquareInit()
 testSquareCompatibility()
