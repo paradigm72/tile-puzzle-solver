@@ -152,16 +152,21 @@ def isPathFullyInBounds(PathString):
 def doesPathContainNoOverlap(PathString):
     PathArray = PathString.split("-->")
     PathArray = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), PathArray)
+    print "PathArray = ",PathArray
     # loop through the nodes in PathString
     x = 0
     y = 0
     OccupiedCoordinates = []
     for node in PathArray:
-        # check for duplicates, error if so
+        print OccupiedCoordinates
+        print "Node: ",node
+        # check for duplicates, failure case if so
+        print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
         if (str(x) + "," + str(y)) in OccupiedCoordinates:
             return False
         # mark this position as occupied
         OccupiedCoordinates.append(str(x) + "," + str(y))
+        print "Marking " + (str(x) + "," + str(y)) + " as occupied."
         # move in the coordinate space
         if node == "Left":
             x = x - 1
@@ -171,7 +176,10 @@ def doesPathContainNoOverlap(PathString):
             y = y + 1
         if node == "Down":
             y = y - 1
-    # check for duplicates
+    # check for duplicates one last time
+    print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
+    if (str(x) + "," + str(y)) in OccupiedCoordinates:
+        return False
     return True
 
 def recordLongestPath(CurrentDepth, PathString):
@@ -183,7 +191,7 @@ def recordLongestPath(CurrentDepth, PathString):
 # implementation
 initialize()
 for potentialStartSquare in squaresList:
-    findAdjacentSquare(potentialStartSquare, 1, "", "")
+    #findAdjacentSquare(potentialStartSquare, 1, "", "")
     print "-----Next Starting Square...-----"
 print "Max Depth reached was: ",maxDepthReached,", Path: ",maxDepthPath
 
