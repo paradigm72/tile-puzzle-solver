@@ -40,6 +40,10 @@ def testIsPathFullyInBounds():
 def testDoesPathContainNoOverlap():
     outcome = True
     outcome = outcome & routeAssertion("main.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Right-->xxxx\") == False")
+    outcome = outcome & routeAssertion("main.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Left-->xxxx\") == True")
+    outcome = outcome & routeAssertion("main.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Down-->Right-->Up-->xxxx\") == False")
+    outcome = outcome & routeAssertion("main.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Left-->Down-->Right-->Right-->xxxx\") == True")
+
     print "Test 'does path contain no overlap'",resultToDisplay(outcome)
 
 # test the Square class

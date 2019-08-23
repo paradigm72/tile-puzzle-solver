@@ -158,15 +158,15 @@ def doesPathContainNoOverlap(PathString):
     y = 0
     OccupiedCoordinates = []
     for node in PathArray:
-        print OccupiedCoordinates
-        print "Node: ",node
+        # print OccupiedCoordinates
+        # print "Node: ",node
         # check for duplicates, failure case if so
-        print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
+        # print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
         if (str(x) + "," + str(y)) in OccupiedCoordinates:
             return False
         # mark this position as occupied
         OccupiedCoordinates.append(str(x) + "," + str(y))
-        print "Marking " + (str(x) + "," + str(y)) + " as occupied."
+        # print "Marking " + (str(x) + "," + str(y)) + " as occupied."
         # move in the coordinate space
         if node == "Left":
             x = x - 1
@@ -177,7 +177,7 @@ def doesPathContainNoOverlap(PathString):
         if node == "Down":
             y = y - 1
     # check for duplicates one last time
-    print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
+    # print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
     if (str(x) + "," + str(y)) in OccupiedCoordinates:
         return False
     return True
