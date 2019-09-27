@@ -41,8 +41,10 @@ def testDoesPathContainNoOverlap():
     outcome = True
     outcome = outcome & routeAssertion("main.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Right-->xxxx\") == False")
     outcome = outcome & routeAssertion("main.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Left-->xxxx\") == True")
-    outcome = outcome & routeAssertion("main.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Down-->Right-->Up-->xxxx\") == False")
-    outcome = outcome & routeAssertion("main.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Left-->Down-->Right-->Right-->xxxx\") == True")
+    outcome = outcome & routeAssertion("main.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Down-->xxxx-->Right-->xxxx-->Up-->xxxx\") == False")
+    outcome = outcome & routeAssertion("main.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Left-->xxxx-->Down-->xxxx-->Right-->xxxx-->Right-->xxxx\") == True")
+    outcome = outcome & routeAssertion("main.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Left-->xxxx-->Down-->xxxx-->Right-->xxxx-->Right-->xxxx-->Up\") == False")
+    outcome = outcome & routeAssertion("main.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Left-->xxxx-->Down-->xxxx-->Down-->xxxx-->Right-->xxxx-->Up-->xxxx-->Up\") == False")
 
     print "Test 'does path contain no overlap'",resultToDisplay(outcome)
 

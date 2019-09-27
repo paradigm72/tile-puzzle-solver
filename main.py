@@ -152,7 +152,7 @@ def isPathFullyInBounds(PathString):
 def doesPathContainNoOverlap(PathString):
     PathArray = PathString.split("-->")
     PathArray = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), PathArray)
-    print "PathArray = ",PathArray
+    # print "PathArray = ",PathArray
     # loop through the nodes in PathString
     x = 0
     y = 0
@@ -191,7 +191,7 @@ def recordLongestPath(CurrentDepth, PathString):
 # implementation
 initialize()
 for potentialStartSquare in squaresList:
-    #findAdjacentSquare(potentialStartSquare, 1, "", "")
+    findAdjacentSquare(potentialStartSquare, 1, "", "")
     print "-----Next Starting Square...-----"
 print "Max Depth reached was: ",maxDepthReached,", Path: ",maxDepthPath
 
