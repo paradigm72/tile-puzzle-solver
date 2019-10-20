@@ -1,4 +1,28 @@
 class Path:
+    def __init__(self):
+        self.Path = []
+
+    def __init__(self, pathString):
+        self.Path = pathString.split("-->")
+
+    def addSquare(self, square, direction):
+        self.Path.append(direction)
+        self.Path.append(square)
+
+    def getSquareList(self):
+        # any array element that isn't a direction is a square
+        return filter(lambda x: (x not in ["Left", "Right", "Up", "Down"]), self.Path)
+
+    def getDirectionList(self):
+        # only return the directions
+        return filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), self.Path)
+
+    def toString(self):
+        returnString = ""
+        for squareOrDirection in self.Path:
+            returnString = returnString + squareOrDirection + "-->"
+        returnString = returnString[:-3]   # strip the three characters - - > from the right end
+
     # PathString is in a format like 4acb-->Up-->31db-->Right-->243a-->Right-->2c1d-->Up-->dcb2-->Left-->3b4a
     @staticmethod
     def isPathFullyInBounds(PathString):
