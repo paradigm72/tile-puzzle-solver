@@ -95,7 +95,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
     PathString = PathString + "-->" + PrevMoveDirection + "-->" + StartingSquare.getShortDescription()
     # bookkeeping to end the recursion if we finished, or we've unwound all the way
     if (CurrentDepth == 1):
-        PathString = PathString[6:]   #wipe the array
+        PathString = PathString[6:]   # wipe everything after the first square and "-->"
     if (CurrentDepth == 9):
         print "Reached depth 9!: ",PathString
     if CurrentDepth > maxDepthReached:
