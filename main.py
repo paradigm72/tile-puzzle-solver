@@ -10,6 +10,7 @@ from path import Path
 
 # globals
 squaresList = [];
+currentPath = Path;
 maxDepthReached = 0;
 maxDepthPath = "";
 
@@ -93,6 +94,7 @@ def findAllMatchesInDirection(StartingSquare, MoveDirection):
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirection):
     StartingSquare.visited = True
     PathString = PathString + "-->" + PrevMoveDirection + "-->" + StartingSquare.getShortDescription()
+    # currentPath.addSquare(StartingSquare.getShortDescription(), PrevMoveDirection) # is this right?
     # bookkeeping to end the recursion if we finished, or we've unwound all the way
     if (CurrentDepth == 1):
         PathString = PathString[6:]   # wipe everything after the first square and "-->"
