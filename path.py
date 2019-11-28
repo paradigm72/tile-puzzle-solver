@@ -16,6 +16,10 @@ class Path:
         self.Path.append(startDir)
         self.Path.append(startSquare)
 
+    def unwindByOne(self):
+        del self.Path[-1]   # remove the last square
+        del self.Path[-1]   # remove the last direction
+
     def getSquareList(self):
         # any array element that isn't a direction is a square
         return filter(lambda x: (x not in ["Left", "Right", "Up", "Down"]), self.Path)

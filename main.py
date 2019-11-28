@@ -10,7 +10,7 @@ from path import Path
 
 # globals
 squaresList = [];
-currentPath = Path;
+currentPath = Path("");
 maxDepthReached = 0;
 maxDepthPath = "";
 
@@ -94,10 +94,12 @@ def findAllMatchesInDirection(StartingSquare, MoveDirection):
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirection):
     StartingSquare.visited = True
     PathString = PathString + "-->" + PrevMoveDirection + "-->" + StartingSquare.getShortDescription()
-    # currentPath.addSquare(StartingSquare.getShortDescription(), PrevMoveDirection) # is this right?
+    currentPath.addSquare(StartingSquare.getShortDescription(), PrevMoveDirection) # is this right?
     # bookkeeping to end the recursion if we finished, or we've unwound all the way
     if (CurrentDepth == 1):
-        PathString = PathString[6:]   # wipe everything after the first square and "-->"
+        # print "Depth 1 Pathstring prior to chop:",PathString
+        PathString = PathString[6:]   # if this is the first square, remove extra --> junk at the start
+        # print "Depth 1 Pathstring after chop:",PathString
     if (CurrentDepth == 9):
         print "Reached depth 9!: ",PathString
     if CurrentDepth > maxDepthReached:
@@ -113,9 +115,12 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
                         # print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
                         findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
                         # print "Unwind"
-    #unwind the recursion
+    #unwind the recursion by one
     StartingSquare.visited = False
-    PathString = PathString[:5]
+    # print "PathString prior to unwind: ",PathString
+    # now that path is an object, we need to manually unwind by one when we leave this recursion level
+    currentPath.unwindByOne()
+    # print "PathString after unwind: ",PathString
 
 def recordLongestPath(CurrentDepth, PathString):
     global maxDepthReached
