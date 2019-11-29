@@ -33,6 +33,7 @@ class Path:
         for squareOrDirection in self.Path:
             returnString = returnString + squareOrDirection + "-->"
         returnString = returnString[:-3]   # strip the three characters - - > from the right end
+        return returnString
 
     # PathString is in a format like 4acb-->Up-->31db-->Right-->243a-->Right-->2c1d-->Up-->dcb2-->Left-->3b4a
     @staticmethod
