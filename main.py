@@ -10,7 +10,7 @@ from path import Path
 
 # globals
 squaresList = [];
-currentPath = Path("");
+currentPath = Path();
 maxDepthReached = 0;
 maxDepthPath = "";
 
@@ -93,12 +93,16 @@ def findAllMatchesInDirection(StartingSquare, MoveDirection):
 
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirection):
     StartingSquare.visited = True
-    PathString = PathString + "-->" + PrevMoveDirection + "-->" + StartingSquare.getShortDescription()
-    currentPath.addSquare(StartingSquare.getShortDescription(), PrevMoveDirection) # is this right?
+    if PrevMoveDirection != "":
+        PathString = PathString + "-->" + PrevMoveDirection + "-->" + StartingSquare.getShortDescription()
+        currentPath.addSquareAndDir(StartingSquare.getShortDescription(), PrevMoveDirection)
+    else:
+        PathString = PathString + StartingSquare.getShortDescription()
+        currentPath.addSquareOnly(StartingSquare.getShortDescription())
     # bookkeeping to end the recursion if we finished, or we've unwound all the way
-    if (CurrentDepth == 1):
+    # if (CurrentDepth == 1):
         # print "Depth 1 Pathstring prior to chop:",PathString
-        PathString = PathString[6:]   # if this is the first square, remove extra --> junk at the start
+        # PathString = PathString[6:]   # if this is the first square, remove extra --> junk at the start
         # print "Depth 1 Pathstring after chop:",PathString
     if (CurrentDepth == 9):
         print "Reached depth 9! (string): ",PathString
@@ -120,7 +124,10 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
     StartingSquare.visited = False
     # print "PathString prior to unwind: ",PathString
     # now that path is an object, we need to manually unwind by one when we leave this recursion level
-    currentPath.unwindByOne()
+    if (CurrentDepth == 1):
+        currentPath.unwindByOneSquareOnly()
+    else:
+        currentPath.unwindByOneSquareAndDir()
     # print "PathString after unwind: ",PathString
 
 def recordLongestPath(CurrentDepth, PathString):

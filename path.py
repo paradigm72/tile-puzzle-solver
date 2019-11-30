@@ -2,11 +2,14 @@ class Path:
     def __init__(self):
         self.Path = []
 
-    def __init__(self, pathString):
-        self.Path = pathString.split("-->")
+    # def __init__(self, pathString):
+    #    self.Path = pathString.split("-->")
 
-    def addSquare(self, square, direction):
+    def addSquareAndDir(self, square, direction):
         self.Path.append(direction)
+        self.Path.append(square)
+
+    def addSquareOnly(self, square):
         self.Path.append(square)
 
     def unwindToStart(self):
@@ -16,9 +19,12 @@ class Path:
         self.Path.append(startDir)
         self.Path.append(startSquare)
 
-    def unwindByOne(self):
+    def unwindByOneSquareAndDir(self):
         del self.Path[-1]   # remove the last square
         del self.Path[-1]   # remove the last direction
+
+    def unwindByOneSquareOnly(self):
+        del self.Path[-1]   # remove the last square
 
     def getSquareList(self):
         # any array element that isn't a direction is a square
