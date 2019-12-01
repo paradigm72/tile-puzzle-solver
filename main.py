@@ -93,17 +93,14 @@ def findAllMatchesInDirection(StartingSquare, MoveDirection):
 
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirection):
     StartingSquare.visited = True
+    # add delimeter and then the next square
     if PrevMoveDirection != "":
         PathString = PathString + "-->" + PrevMoveDirection + "-->" + StartingSquare.getShortDescription()
         currentPath.addSquareAndDir(StartingSquare.getShortDescription(), PrevMoveDirection)
+    # for the first square, don't start with the delimiter
     else:
         PathString = PathString + StartingSquare.getShortDescription()
         currentPath.addSquareOnly(StartingSquare.getShortDescription())
-    # bookkeeping to end the recursion if we finished, or we've unwound all the way
-    # if (CurrentDepth == 1):
-        # print "Depth 1 Pathstring prior to chop:",PathString
-        # PathString = PathString[6:]   # if this is the first square, remove extra --> junk at the start
-        # print "Depth 1 Pathstring after chop:",PathString
     if (CurrentDepth == 9):
         print "Reached depth 9! (string): ",PathString
         print "Reached depth 9! (object): ",currentPath.toString()
@@ -120,15 +117,13 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
                         # print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
                         findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
                         # print "Unwind"
-    #unwind the recursion by one
+    # unmark, so we can revisit on a different sibling path
     StartingSquare.visited = False
-    # print "PathString prior to unwind: ",PathString
     # now that path is an object, we need to manually unwind by one when we leave this recursion level
     if (CurrentDepth == 1):
         currentPath.unwindByOneSquareOnly()
     else:
         currentPath.unwindByOneSquareAndDir()
-    # print "PathString after unwind: ",PathString
 
 def recordLongestPath(CurrentDepth, PathString):
     global maxDepthReached
