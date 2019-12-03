@@ -30,7 +30,12 @@ def testDoCodesMatch():
 
 def testIsPathFullyInBounds():
     outcome = True
-    outcome = outcome & routeAssertion("main.Path.isPathFullyInBounds(\"xxxx-->Left-->xxxx-->Left-->xxxx-->Left-->xxxx\") == False")
+    objectStore = []
+    objectStore.append(main.Path.fromString("xxxx-->Left-->xxxx-->Left-->xxxx-->Left-->xxxx"))
+    myNewPath =  main.Path.fromString("xxxx-->Left-->xxxx-->Left-->xxxx-->Left-->xxxx")
+    print myNewPath.toString()
+    print objectStore[0].toString()
+    outcome = outcome & routeAssertion("objectStore[0].isPathFullyInBounds() == False")
     outcome = outcome & routeAssertion("main.Path.isPathFullyInBounds(\"xxxx-->Left-->xxxx-->Left-->xxxx-->Right-->xxxx\") == True")
     outcome = outcome & routeAssertion("main.Path.isPathFullyInBounds(\"xxxx-->Up-->xxxx-->Down-->xxxx-->Left-->xxxx-->Right-->xxxx\") == True")
     outcome = outcome & routeAssertion("main.Path.isPathFullyInBounds(\"xxxx-->Up-->xxxx-->Up-->xxxx-->Up-->xxxx-->Down-->xxxx-->Right-->xxxx\") == False")
@@ -50,8 +55,8 @@ def testDoesPathContainNoOverlap():
 
 # test the Square class
 def testSquareInit():
-    objectStore = [];
-    objectStore.append(main.Square('abcd'));
+    objectStore = []
+    objectStore.append(main.Square('abcd'))
     outcome = True
     outcome = outcome & routeAssertion("objectStore[0].layout == \'abcd\'", objectStore)
     outcome = outcome & routeAssertion("objectStore[0].visited == False", objectStore)
@@ -59,9 +64,9 @@ def testSquareInit():
     print "Test square initialization: ",resultToDisplay(outcome)
 
 def testSquareCompatibility():
-    objectStore = [];
-    objectStore.append(main.Square('abaa'));
-    objectStore.append(main.Square('4442'));
+    objectStore = []
+    objectStore.append(main.Square('abaa'))
+    objectStore.append(main.Square('4442'))
     outcome = True
     outcome = outcome & routeAssertion("main.areCompatible(objectStore[0],objectStore[1],main.Direction.Right)",objectStore)
     outcome = outcome & routeAssertion("not (main.areCompatible(objectStore[0],objectStore[1],7))",objectStore)

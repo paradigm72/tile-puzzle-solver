@@ -2,8 +2,11 @@ class Path:
     def __init__(self):
         self.Path = []
 
-    # def __init__(self, pathString):
-    #    self.Path = pathString.split("-->")
+    # factory constructor from a pre-constructed string
+    @classmethod
+    def fromString(cls, pathString):
+        cls.Path = pathString.split("-->")
+        return cls
 
     def addSquareAndDir(self, square, direction):
         self.Path.append(direction)
@@ -41,21 +44,17 @@ class Path:
         returnString = returnString[:-3]   # strip the three characters - - > from the right end
         return returnString
 
-    # PathString is in a format like 4acb-->Up-->31db-->Right-->243a-->Right-->2c1d-->Up-->dcb2-->Left-->3b4a
-    @staticmethod
-    def isPathFullyInBounds(PathString):
-        # print "Checking path: ",PathString
-        PathArray = PathString.split("-->")
+    def isPathFullyInBounds(self):
         # print "Split array: ",PathArray
-        PathArray = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), PathArray)
+        pathSquaresOnly = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), self.Path)
         # print "Filtered array: ",PathArray
         subArrayToTest = []
-        for start in range(0, len(PathArray)):
-            for end in range(start, len(PathArray)):
+        for start in range(0, len(pathSquaresOnly)):
+            for end in range(start, len(pathSquaresOnly)):
                 horizontalCounter = 0
                 verticalCounter = 0
                 # grab the slice of the array
-                subArrayToTest = PathArray[start:end+1]
+                subArrayToTest = pathSquaresOnly[start:end+1]
                 # debug
                 # print "Path Length=",len(PathArray),"Start=",start,"End=",end,"About to test array slice: ",subArrayToTest
                 # loop over each element in the slice
@@ -73,7 +72,7 @@ class Path:
                     if ((abs(horizontalCounter) > 2) or (abs(verticalCounter) > 2)):
                         # print "Path fell out of bounds"
                         return False
-            # print "Path did not violate the bounds"
+                        # print "Path did not violate the bounds"
         return True
 
     # whether the path does not close in on itself
