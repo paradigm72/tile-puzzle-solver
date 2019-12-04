@@ -5,8 +5,9 @@ class Path:
     # factory constructor from a pre-constructed string
     @classmethod
     def fromString(cls, pathString):
-        cls.Path = pathString.split("-->")
-        return cls
+        pathObj = cls()
+        pathObj.Path = pathString.split("-->")
+        return pathObj
 
     def addSquareAndDir(self, square, direction):
         self.Path.append(direction)

@@ -32,14 +32,15 @@ def testIsPathFullyInBounds():
     outcome = True
     objectStore = []
     objectStore.append(main.Path.fromString("xxxx-->Left-->xxxx-->Left-->xxxx-->Left-->xxxx"))
-    myNewPath =  main.Path.fromString("xxxx-->Left-->xxxx-->Left-->xxxx-->Left-->xxxx")
-    print myNewPath.toString()
-    print objectStore[0].toString()
-    outcome = outcome & routeAssertion("objectStore[0].isPathFullyInBounds() == False")
-    outcome = outcome & routeAssertion("main.Path.isPathFullyInBounds(\"xxxx-->Left-->xxxx-->Left-->xxxx-->Right-->xxxx\") == True")
-    outcome = outcome & routeAssertion("main.Path.isPathFullyInBounds(\"xxxx-->Up-->xxxx-->Down-->xxxx-->Left-->xxxx-->Right-->xxxx\") == True")
-    outcome = outcome & routeAssertion("main.Path.isPathFullyInBounds(\"xxxx-->Up-->xxxx-->Up-->xxxx-->Up-->xxxx-->Down-->xxxx-->Right-->xxxx\") == False")
-    outcome = outcome & routeAssertion("main.Path.isPathFullyInBounds(\"Up-->xxxx-->Up-->xxxx-->Up-->xxxx-->Up-->xxxx-->Down-->xxxx-->Down-->xxxx-->Down-->xxxx-->Left\") == False")
+    objectStore.append(main.Path.fromString("xxxx-->Left-->xxxx-->Left-->xxxx-->Right-->xxxx"))
+    objectStore.append(main.Path.fromString("xxxx-->Up-->xxxx-->Down-->xxxx-->Left-->xxxx-->Right-->xxxx"))
+    objectStore.append(main.Path.fromString("xxxx-->Up-->xxxx-->Up-->xxxx-->Up-->xxxx-->Down-->xxxx-->Right-->xxxx"))
+    objectStore.append(main.Path.fromString("Up-->xxxx-->Up-->xxxx-->Up-->xxxx-->Up-->xxxx-->Down-->xxxx-->Down-->xxxx-->Down-->xxxx-->Left"))
+    outcome = outcome & routeAssertion("objectStore[0].isPathFullyInBounds() == False", objectStore)
+    outcome = outcome & routeAssertion("objectStore[1].isPathFullyInBounds() == True", objectStore)
+    outcome = outcome & routeAssertion("objectStore[2].isPathFullyInBounds() == True", objectStore)
+    outcome = outcome & routeAssertion("objectStore[3].isPathFullyInBounds() == False", objectStore)
+    outcome = outcome & routeAssertion("objectStore[4].isPathFullyInBounds() == False", objectStore)
     print "Test 'is path fully in bounds'",resultToDisplay(outcome)
 
 def testDoesPathContainNoOverlap():
