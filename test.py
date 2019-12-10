@@ -45,12 +45,19 @@ def testIsPathFullyInBounds():
 
 def testDoesPathContainNoOverlap():
     outcome = True
-    outcome = outcome & routeAssertion("main.Path.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Right-->xxxx\") == False")
-    outcome = outcome & routeAssertion("main.Path.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Left-->xxxx\") == True")
-    outcome = outcome & routeAssertion("main.Path.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Down-->xxxx-->Right-->xxxx-->Up-->xxxx\") == False")
-    outcome = outcome & routeAssertion("main.Path.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Left-->xxxx-->Down-->xxxx-->Right-->xxxx-->Right-->xxxx\") == True")
-    outcome = outcome & routeAssertion("main.Path.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Left-->xxxx-->Down-->xxxx-->Right-->xxxx-->Right-->xxxx-->Up\") == False")
-    outcome = outcome & routeAssertion("main.Path.doesPathContainNoOverlap(\"xxxx-->Left-->xxxx-->Left-->xxxx-->Down-->xxxx-->Down-->xxxx-->Right-->xxxx-->Up-->xxxx-->Up\") == False")
+    objectStore = []
+    objectStore.append(main.Path.fromString("xxxx-->Left-->xxxx-->Right-->xxxx"))
+    objectStore.append(main.Path.fromString("xxxx-->Left-->xxxx-->Left-->xxxx"))
+    objectStore.append(main.Path.fromString("xxxx-->Left-->xxxx-->Down-->xxxx-->Right-->xxxx-->Up-->xxxx"))
+    objectStore.append(main.Path.fromString("xxxx-->Left-->xxxx-->Left-->xxxx-->Down-->xxxx-->Right-->xxxx-->Right-->xxxx"))
+    objectStore.append(main.Path.fromString("xxxx-->Left-->xxxx-->Left-->xxxx-->Down-->xxxx-->Right-->xxxx-->Right-->xxxx-->Up"))
+    objectStore.append(main.Path.fromString("xxxx-->Left-->xxxx-->Left-->xxxx-->Down-->xxxx-->Down-->xxxx-->Right-->xxxx-->Up-->xxxx-->Up"))
+    outcome = outcome & routeAssertion("objectStore[0].doesPathContainNoOverlap() == False", objectStore)
+    outcome = outcome & routeAssertion("objectStore[1].doesPathContainNoOverlap() == True", objectStore)
+    outcome = outcome & routeAssertion("objectStore[2].doesPathContainNoOverlap() == False", objectStore)
+    outcome = outcome & routeAssertion("objectStore[3].doesPathContainNoOverlap() == True", objectStore)
+    outcome = outcome & routeAssertion("objectStore[4].doesPathContainNoOverlap() == False", objectStore)
+    outcome = outcome & routeAssertion("objectStore[5].doesPathContainNoOverlap() == False", objectStore)
 
     print "Test 'does path contain no overlap'",resultToDisplay(outcome)
 

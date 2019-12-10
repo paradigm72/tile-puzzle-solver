@@ -77,16 +77,14 @@ class Path:
         return True
 
     # whether the path does not close in on itself
-    @staticmethod
-    def doesPathContainNoOverlap(PathString):
-        PathArray = PathString.split("-->")
-        PathArray = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), PathArray)
+    def doesPathContainNoOverlap(self):
+        pathSquaresOnly = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), self.Path)
         # print "PathArray = ",PathArray
         # loop through the nodes in PathString
         x = 0
         y = 0
         OccupiedCoordinates = []
-        for node in PathArray:
+        for node in pathSquaresOnly:
             # print OccupiedCoordinates
             # print "Node: ",node
             # check for duplicates, failure case if so

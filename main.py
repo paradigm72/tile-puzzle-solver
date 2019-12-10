@@ -112,7 +112,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
             # get a list of all matching squares that would work for the given direction, then go that way
             nextSquaresToMoveTo = findAllMatchesInDirection(StartingSquare, MoveDirection)
             for nextSquare in nextSquaresToMoveTo:
-                if (nextSquare != None) & (currentPath.isPathFullyInBounds() & (Path.doesPathContainNoOverlap(PathString))):
+                if (nextSquare != None) & (currentPath.isPathFullyInBounds() & (currentPath.doesPathContainNoOverlap())):
                     if (not nextSquare.visited):
                         # print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
                         findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
