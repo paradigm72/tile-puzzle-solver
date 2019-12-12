@@ -105,7 +105,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
         print "Reached depth 9! (string): ",PathString
         print "Reached depth 9! (object): ",currentPath.toString()
     if CurrentDepth > maxDepthReached:
-        recordLongestPath(CurrentDepth, PathString)
+        recordLongestPath(CurrentDepth, PathString, currentPath)
     # the recursion loop
     for MoveDirection in ["Left", "Right", "Down", "Up"]:
         if (not (isInverseDirection(MoveDirection, PrevMoveDirection))):
@@ -125,11 +125,11 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
     else:
         currentPath.unwindByOneSquareAndDir()
 
-def recordLongestPath(CurrentDepth, PathString):
+def recordLongestPath(CurrentDepth, PathString, currentPath):
     global maxDepthReached
     global maxDepthPath
     maxDepthReached = CurrentDepth
-    maxDepthPath = PathString
+    maxDepthPath = currentPath.toString()
 
 # implementation
 initialize()
