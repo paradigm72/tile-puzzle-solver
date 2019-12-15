@@ -93,7 +93,7 @@ def findAllMatchesInDirection(StartingSquare, MoveDirection):
 
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirection):
     StartingSquare.visited = True
-    # add delimeter and then the next square
+    # add delimiter and then the next square
     if PrevMoveDirection != "":
         PathString = PathString + "-->" + PrevMoveDirection + "-->" + StartingSquare.getShortDescription()
         currentPath.addSquareAndDir(StartingSquare.getShortDescription(), PrevMoveDirection)
@@ -105,9 +105,9 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
         print "Reached depth 9! (string): ",PathString
         print "Reached depth 9! (object): ",currentPath.toString()
     if CurrentDepth > maxDepthReached:
-        recordLongestPath(CurrentDepth, PathString, currentPath)
+        recordLongestPath(CurrentDepth, currentPath)
     # the recursion loop
-    for MoveDirection in ["Left", "Right", "Down", "Up"]:
+    for MoveDirection in [Direction.Left, Direction.Right, Direction.Down, Direction.Up]:
         if (not (isInverseDirection(MoveDirection, PrevMoveDirection))):
             # get a list of all matching squares that would work for the given direction, then go that way
             nextSquaresToMoveTo = findAllMatchesInDirection(StartingSquare, MoveDirection)
@@ -125,7 +125,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
     else:
         currentPath.unwindByOneSquareAndDir()
 
-def recordLongestPath(CurrentDepth, PathString, currentPath):
+def recordLongestPath(CurrentDepth, currentPath):
     global maxDepthReached
     global maxDepthPath
     maxDepthReached = CurrentDepth
