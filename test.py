@@ -55,12 +55,17 @@ def testDoesPathContainNoOverlap():
     objectStore.append(main.Path.fromString("xxxx-->Left-->xxxx-->Left-->xxxx-->Down-->xxxx-->Right-->xxxx-->Right-->xxxx"))
     objectStore.append(main.Path.fromString("xxxx-->Left-->xxxx-->Left-->xxxx-->Down-->xxxx-->Right-->xxxx-->Right-->xxxx-->Up"))
     objectStore.append(main.Path.fromString("xxxx-->Left-->xxxx-->Left-->xxxx-->Down-->xxxx-->Down-->xxxx-->Right-->xxxx-->Up-->xxxx-->Up"))
+
+    # this is a real path which we found, but it does contain overlap (doesn't contain no overlap)
+    objectStore.append(main.Path.fromString("2c1d-->Left-->243a-->Left-->3124-->Up-->4acb-->Right-->4ba1-->Up-->31db-->Right-->3b4a-->Down-->dcb2-->Down-->24ac"))
+
     outcome = outcome & routeAssertion("objectStore[0].doesPathContainNoOverlap() == False", objectStore)
     outcome = outcome & routeAssertion("objectStore[1].doesPathContainNoOverlap() == True", objectStore)
     outcome = outcome & routeAssertion("objectStore[2].doesPathContainNoOverlap() == False", objectStore)
     outcome = outcome & routeAssertion("objectStore[3].doesPathContainNoOverlap() == True", objectStore)
     outcome = outcome & routeAssertion("objectStore[4].doesPathContainNoOverlap() == False", objectStore)
     outcome = outcome & routeAssertion("objectStore[5].doesPathContainNoOverlap() == False", objectStore)
+    outcome = outcome & routeAssertion("objectStore[6].doesPathContainNoOverlap() == False", objectStore)
     print "Test 'does path contain no overlap'",resultToDisplay(outcome)
 
 # test the Square class
