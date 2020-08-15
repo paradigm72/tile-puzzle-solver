@@ -101,6 +101,11 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
     else:
         PathString = PathString + StartingSquare.getShortDescription()
         currentPath.addSquareOnly(StartingSquare.getShortDescription())
+    # if we now have an out-of-bounds or overlapping path, bail and unwind
+    if not (currentPath.isPathFullyInBounds() & (currentPath.doesPathContainNoOverlap())):
+        currentPath.unwindByOneSquareAndDir()
+        return
+    # path seems valid, check if we hit 9 squares
     if (CurrentDepth == 9):
         print "Reached depth 9! (string): ",PathString
         print "Reached depth 9! (object): ",currentPath.toString()
@@ -112,7 +117,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
             # get a list of all matching squares that would work for the given direction, then go that way
             nextSquaresToMoveTo = findAllMatchesInDirection(StartingSquare, MoveDirection)
             for nextSquare in nextSquaresToMoveTo:
-                if (nextSquare != None) & (currentPath.isPathFullyInBounds() & (currentPath.doesPathContainNoOverlap())):
+                if (nextSquare != None):
                     if (not nextSquare.visited):
                         # print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
                         findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
