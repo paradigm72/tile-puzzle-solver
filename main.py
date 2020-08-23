@@ -103,6 +103,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
         currentPath.addSquareOnly(StartingSquare.getShortDescription())
     # if we now have an out-of-bounds or overlapping path, bail and unwind
     if not (currentPath.isPathFullyInBounds() & (currentPath.doesPathContainNoOverlap())):
+        print "Path went out of bounds/overlapped at depth",CurrentDepth," with path",currentPath.toString()
         currentPath.unwindByOneSquareAndDir()
         return
     # path seems valid, check if we hit 9 squares
