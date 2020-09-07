@@ -120,7 +120,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
             for nextSquare in nextSquaresToMoveTo:
                 if (nextSquare != None):
                     if (not nextSquare.visited):
-                        # print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"]"
+                        print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"],",len(nextSquaresToMoveTo),"available next squares."
                         findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
                         # print "Unwind"
     # unmark, so we can revisit on a different sibling path
