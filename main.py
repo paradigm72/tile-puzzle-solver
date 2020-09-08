@@ -117,11 +117,14 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
         if (not (isInverseDirection(MoveDirection, PrevMoveDirection))):
             # get a list of all matching squares that would work for the given direction, then go that way
             nextSquaresToMoveTo = findAllMatchesInDirection(StartingSquare, MoveDirection)
+            # count the number of next adjacent squares we've tried, for tracing
+            squareNumberAttempted = 1
             for nextSquare in nextSquaresToMoveTo:
                 if (nextSquare != None):
                     if (not nextSquare.visited):
-                        print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," -> [",nextSquare.getShortDescription(),"],",len(nextSquaresToMoveTo),"available next squares."
+                        print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," \t-> [",nextSquare.getShortDescription(),"], candidate",squareNumberAttempted,"of",len(nextSquaresToMoveTo),"possible adjacent next squares from",StartingSquare.getShortDescription()
                         findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
+                        squareNumberAttempted = squareNumberAttempted + 1
                         # print "Unwind"
     # unmark, so we can revisit on a different sibling path
     StartingSquare.visited = False
