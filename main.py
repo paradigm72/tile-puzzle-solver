@@ -88,7 +88,8 @@ def findAllMatchesInDirection(StartingSquare, MoveDirection):
     for potentialMatchingSquare in squaresList:
         if not (potentialMatchingSquare.getShortDescription == StartingSquare.getShortDescription):
             if (areCompatible(StartingSquare, potentialMatchingSquare, MoveDirection)):
-                matchesArray.append(potentialMatchingSquare)
+                if (not potentialMatchingSquare.visited):
+                    matchesArray.append(potentialMatchingSquare)
     return matchesArray
 
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirection):
@@ -121,11 +122,10 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
             squareNumberAttempted = 1
             for nextSquare in nextSquaresToMoveTo:
                 if (nextSquare != None):
-                    if (not nextSquare.visited):
-                        print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," \t-> [",nextSquare.getShortDescription(),"], candidate",squareNumberAttempted,"of",len(nextSquaresToMoveTo),"possible adjacent next squares from",StartingSquare.getShortDescription()
-                        findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
-                        squareNumberAttempted = squareNumberAttempted + 1
-                        # print "Unwind"
+                    print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," \t-> [",nextSquare.getShortDescription(),"], candidate",squareNumberAttempted,"of",len(nextSquaresToMoveTo),"possible adjacent next squares from",StartingSquare.getShortDescription()
+                    findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
+                    squareNumberAttempted = squareNumberAttempted + 1
+                    # print "Unwind"
     # unmark, so we can revisit on a different sibling path
     StartingSquare.visited = False
     # now that path is an object, we need to manually unwind by one when we leave this recursion level
