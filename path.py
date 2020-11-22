@@ -108,3 +108,18 @@ class Path:
         if (str(x) + "," + str(y)) in OccupiedCoordinates:
             return False
         return True
+
+    @staticmethod
+    def PathDebugVisualization(length):
+        visualizedLength = ""
+        for x in range(1, 9):
+            if x <= length:
+                visualizedLength = visualizedLength + "*"
+            else:
+                visualizedLength = visualizedLength + " "
+        return visualizedLength
+
+
+
+
+
