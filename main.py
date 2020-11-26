@@ -122,7 +122,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
             squareNumberAttempted = 1
             for nextSquare in nextSquaresToMoveTo:
                 if (nextSquare != None):
-                    print CurrentDepth,": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," \t-> [",nextSquare.getShortDescription(),"], candidate",squareNumberAttempted,"of",len(nextSquaresToMoveTo),"possible adjacent next squares from",StartingSquare.getShortDescription()
+                    print Path.PathDebugVisualization(CurrentDepth),": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," \t-> [",nextSquare.getShortDescription(),"], candidate",squareNumberAttempted,"of",len(nextSquaresToMoveTo),"possible adjacent next squares from",StartingSquare.getShortDescription()
                     findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
                     squareNumberAttempted = squareNumberAttempted + 1
                     # print "Unwind"
