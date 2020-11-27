@@ -21,15 +21,26 @@ class Direction:
     Down = "Down"
     Up = "Up"
 
-def OppositeDirection(testDir):
-    if (testDir == Direction.Left):
-        return Direction.Right
-    if (testDir == Direction.Right):
-        return Direction.Left
-    if (testDir == Direction.Up):
-        return Direction.Down
-    if (testDir == Direction.Down):
-        return  Direction.Up
+    def Padded(testDir):
+        if testDir == Direction.Right:
+            return testDir
+        elif testDir == Direction.Left:
+            return testDir + " "
+        elif testDir == Direction.Down:
+            return testDir + " "
+        elif testDir == Direction.Up:
+            return testDir + "   "
+        return ""
+
+    def Opposite(testDir):
+        if (testDir == Direction.Left):
+            return Direction.Right
+        if (testDir == Direction.Right):
+            return Direction.Left
+        if (testDir == Direction.Up):
+            return Direction.Down
+        if (testDir == Direction.Down):
+            return  Direction.Up
 
 def doCodesMatch(code1, code2):
     # 48 is the ASCII offset between '1' and 'a'
@@ -40,7 +51,7 @@ def doCodesMatch(code1, code2):
     return False
 
 def isInverseDirection(dir1, dir2):
-    if (OppositeDirection(dir1) == dir2):
+    if (Direction.Opposite(dir1) == dir2):
         return True
     return False
 
@@ -122,7 +133,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
             squareNumberAttempted = 1
             for nextSquare in nextSquaresToMoveTo:
                 if (nextSquare != None):
-                    print Path.PathDebugVisualization(CurrentDepth),": [",StartingSquare.getShortDescription(),"] ->",MoveDirection," \t-> [",nextSquare.getShortDescription(),"], candidate",squareNumberAttempted,"of",len(nextSquaresToMoveTo),"possible adjacent next squares from",StartingSquare.getShortDescription()
+                    print Path.PathDebugVisualization(CurrentDepth),": [",StartingSquare.getShortDescription(),"] ->",Direction.Padded(MoveDirection)," \t-> [",nextSquare.getShortDescription(),"], candidate",squareNumberAttempted,"of",len(nextSquaresToMoveTo),"possible adjacent next squares from",StartingSquare.getShortDescription()
                     findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
                     squareNumberAttempted = squareNumberAttempted + 1
                     # print "Unwind"
