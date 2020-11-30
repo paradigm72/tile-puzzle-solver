@@ -11,8 +11,8 @@ def routeAssertion(expression, objectStore = []):
 # generic tests
 def testOppositeDirection():
     outcome = True
-    outcome = outcome & routeAssertion("main.OppositeDirection(main.Direction.Left) == main.Direction.Right")
-    outcome = outcome & routeAssertion("main.OppositeDirection(main.Direction.Up) == main.Direction.Down")
+    outcome = outcome & routeAssertion("main.Direction.Opposite(main.Direction.Left) == main.Direction.Right")
+    outcome = outcome & routeAssertion("main.Direction.Opposite(main.Direction.Up) == main.Direction.Down")
     print "Test opposite direction: ",resultToDisplay(outcome)
 
 def testInverseDirection():

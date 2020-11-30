@@ -21,6 +21,7 @@ class Direction:
     Down = "Down"
     Up = "Up"
 
+    @staticmethod
     def Padded(testDir):
         if testDir == Direction.Right:
             return testDir
@@ -32,6 +33,7 @@ class Direction:
             return testDir + "   "
         return ""
 
+    @staticmethod
     def Opposite(testDir):
         if (testDir == Direction.Left):
             return Direction.Right
