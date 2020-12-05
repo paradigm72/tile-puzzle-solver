@@ -96,12 +96,19 @@ def testGetMatchingCode():
     outcome = outcome & routeAssertion("main.Square.getMatchingCode(\"3\") == \"c\"")
     print "Test get matching codes: ",resultToDisplay(outcome)
 
-
+def testPathDebugVisualization():
+    outcome = True
+    outcome = outcome & routeAssertion("main.Path.PathDebugVisualization(1) == \"*        \"")
+    outcome = outcome & routeAssertion("main.Path.PathDebugVisualization(3) == \"***      \"")
+    outcome = outcome & routeAssertion("main.Path.PathDebugVisualization(9) == \"*********\"")
+    outcome = outcome & routeAssertion("main.Path.PathDebugVisualization(12) == \"*********\"")
+    print "Test path debug visualization: ",resultToDisplay(outcome)
 
 # run the tests
 print "Running unit tests..."
 testOppositeDirection()
 testGetMatchingCode()
+testPathDebugVisualization()
 testDoCodesMatch()
 testIsPathFullyInBounds()
 testDoesPathContainNoOverlap()

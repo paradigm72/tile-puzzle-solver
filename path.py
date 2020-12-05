@@ -112,7 +112,7 @@ class Path:
     @staticmethod
     def PathDebugVisualization(length):
         visualizedLength = ""
-        for x in range(1, 9):
+        for x in range(1, 10):
             if x <= length:
                 visualizedLength = visualizedLength + "*"
             else:
