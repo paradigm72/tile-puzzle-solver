@@ -87,7 +87,7 @@ def initialize():
 
 def initializeSquares():
     squaresList.append(Square('dcb2'))
-    squaresList.append(Square('2c1d'))
+    squaresList.append(Square('2cad'))
     squaresList.append(Square('3b4a'))
     squaresList.append(Square('24ac'))
     squaresList.append(Square('3124'))
