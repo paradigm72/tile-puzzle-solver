@@ -99,10 +99,12 @@ def initializeSquares():
 def findAllMatchesInDirection(StartingSquare, MoveDirection):
     matchesArray = []
     for potentialMatchingSquare in squaresList:
-        if not (potentialMatchingSquare.getShortDescription == StartingSquare.getShortDescription):
+        if (not potentialMatchingSquare.visited):
+            # upgrade to "are compatible in direction", check all 4, and use directionality when appending
+            # maybe mutate the actual square object and leave it that way, for all future comparisons
+            # but we do need a way to try the same square twice in two different orientations
             if (areCompatible(StartingSquare, potentialMatchingSquare, MoveDirection)):
-                if (not potentialMatchingSquare.visited):
-                    matchesArray.append(potentialMatchingSquare)
+                matchesArray.append(potentialMatchingSquare)
     return matchesArray
 
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirection):
