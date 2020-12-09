@@ -96,15 +96,12 @@ def initializeSquares():
     squaresList.append(Square('4ba1'))
     squaresList.append(Square('4acb'))
 
-def findAllMatchesInDirection(StartingSquare, MoveDirection):
+def findAllNotYetVisitedSquares():
     matchesArray = []
-    for potentialMatchingSquare in squaresList:
-        if (not potentialMatchingSquare.visited):
-            # upgrade to "are compatible in direction", check all 4, and use directionality when appending
-            # maybe mutate the actual square object and leave it that way, for all future comparisons
-            # but we do need a way to try the same square twice in two different orientations
-            if (areCompatible(StartingSquare, potentialMatchingSquare, MoveDirection)):
-                matchesArray.append(potentialMatchingSquare)
+    for potentialNextSquare in squaresList:
+        if (not potentialNextSquare.visited):
+            # no longer checking compatibility here; it needs to be inside the loop
+            matchesArray.append(potentialNextSquare)
     return matchesArray
 
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirection):
@@ -131,16 +128,18 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
     # the recursion loop
     for MoveDirection in [Direction.Left, Direction.Right, Direction.Down, Direction.Up]:
         if (not (isInverseDirection(MoveDirection, PrevMoveDirection))):
-            # get a list of all matching squares that would work for the given direction, then go that way
-            nextSquaresToMoveTo = findAllMatchesInDirection(StartingSquare, MoveDirection)
+            # get a list of possible next squares that haven't been visited yet
+            nextSquaresToMoveTo = findAllNotYetVisitedSquares()
             # count the number of next adjacent squares we've tried, for tracing
             squareNumberAttempted = 1
             for nextSquare in nextSquaresToMoveTo:
                 if (nextSquare != None):
-                    print Path.PathDebugVisualization(CurrentDepth),": [",StartingSquare.getShortDescription(),"] ->",Direction.Padded(MoveDirection)," \t-> [",nextSquare.getShortDescription(),"], candidate",squareNumberAttempted,"of",len(nextSquaresToMoveTo),"possible adjacent next squares from",StartingSquare.getShortDescription()
-                    findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
-                    squareNumberAttempted = squareNumberAttempted + 1
-                    # print "Unwind"
+                    for direction in 1,2,3,4:
+                        print Path.PathDebugVisualization(CurrentDepth),": [",StartingSquare.getShortDescription(),"] ->",Direction.Padded(MoveDirection)," \t-> [",nextSquare.getShortDescription(),"], candidate",squareNumberAttempted,"of",len(nextSquaresToMoveTo),"possible adjacent next squares from",StartingSquare.getShortDescription()
+                        nextSquare.rotateClockWise();
+                        if areCompatible(StartingSquare, nextSquare, MoveDirection):
+                            findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
+                            squareNumberAttempted = squareNumberAttempted + 1
     # unmark, so we can revisit on a different sibling path
     StartingSquare.visited = False
     # now that path is an object, we need to manually unwind by one when we leave this recursion level
