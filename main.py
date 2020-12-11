@@ -130,16 +130,13 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
         if (not (isInverseDirection(MoveDirection, PrevMoveDirection))):
             # get a list of possible next squares that haven't been visited yet
             nextSquaresToMoveTo = findAllNotYetVisitedSquares()
-            # count the number of next adjacent squares we've tried, for tracing
-            squareNumberAttempted = 1
             for nextSquare in nextSquaresToMoveTo:
                 if (nextSquare != None):
                     for direction in 1,2,3,4:
-                        print Path.PathDebugVisualization(CurrentDepth),": [",StartingSquare.getShortDescription(),"] ->",Direction.Padded(MoveDirection)," \t-> [",nextSquare.getShortDescription(),"], candidate",squareNumberAttempted,"of",len(nextSquaresToMoveTo),"possible adjacent next squares from",StartingSquare.getShortDescription()
+                        print Path.PathDebugVisualization(CurrentDepth),": [",StartingSquare.getShortDescription(),"] ->",Direction.Padded(MoveDirection)," \t-> [",nextSquare.getShortDescription(),"]"
                         nextSquare.rotateClockWise();
                         if areCompatible(StartingSquare, nextSquare, MoveDirection):
                             findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
-                            squareNumberAttempted = squareNumberAttempted + 1
     # unmark, so we can revisit on a different sibling path
     StartingSquare.visited = False
     # now that path is an object, we need to manually unwind by one when we leave this recursion level
