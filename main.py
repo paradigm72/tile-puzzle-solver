@@ -133,8 +133,8 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
             for nextSquare in nextSquaresToMoveTo:
                 if (nextSquare != None):
                     for direction in 1,2,3,4:
-                        print Path.PathDebugVisualization(CurrentDepth),": [",StartingSquare.getShortDescription(),"] ->",Direction.Padded(MoveDirection)," \t-> [",nextSquare.getShortDescription(),"]"
                         nextSquare.rotateClockWise();
+                        print Path.PathDebugVisualization(CurrentDepth),": [",StartingSquare.getShortDescription(),"] ->",Direction.Padded(MoveDirection)," \t-> [",nextSquare.getShortDescription(),"]"
                         if areCompatible(StartingSquare, nextSquare, MoveDirection):
                             findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
     # unmark, so we can revisit on a different sibling path
