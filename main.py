@@ -118,6 +118,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
     if not (currentPath.isPathFullyInBounds() & (currentPath.doesPathContainNoOverlap())):
         print "Path went out of bounds/overlapped at depth",CurrentDepth," with path",currentPath.toString()
         currentPath.unwindByOneSquareAndDir()
+        StartingSquare.visited = False
         return
     # path seems valid, check if we hit 9 squares
     if (CurrentDepth == 9):
@@ -132,9 +133,10 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
             nextSquaresToMoveTo = findAllNotYetVisitedSquares()
             for nextSquare in nextSquaresToMoveTo:
                 if (nextSquare != None):
-                    for direction in 1,2,3,4:
+                    for rotation in 1,2,3,4:
                         nextSquare.rotateClockWise();
-                        print Path.PathDebugVisualization(CurrentDepth),": [",StartingSquare.getShortDescription(),"] ->",Direction.Padded(MoveDirection)," \t-> [",nextSquare.getShortDescription(),"]"
+                        # print CurrentDepth,":",Path.PathDebugVisualization(CurrentDepth),": [",StartingSquare.getShortDescription(),"] ->",Direction.Padded(MoveDirection)," \t-> [",nextSquare.getShortDescription(),"]"
+                        print PathString
                         if areCompatible(StartingSquare, nextSquare, MoveDirection):
                             findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
     # unmark, so we can revisit on a different sibling path
