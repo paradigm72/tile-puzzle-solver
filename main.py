@@ -11,8 +11,9 @@ from path import Path
 # globals
 squaresList = [];
 currentPath = Path();
-maxDepthReached = 0;
-maxDepthPath = "";
+maxDepthReached = 0
+maxDepthPath = ""
+depthNineCount = 0
 
 # static class for directional enums
 class Direction:
@@ -105,6 +106,8 @@ def findAllNotYetVisitedSquares():
     return matchesArray
 
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirection):
+    global depthNineCount
+
     StartingSquare.visited = True
     # add delimiter and then the next square
     if PrevMoveDirection != "":
@@ -116,14 +119,15 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
         currentPath.addSquareOnly(StartingSquare.getShortDescription())
     # if we now have an out-of-bounds or overlapping path, bail and unwind
     if not (currentPath.isPathFullyInBounds() & (currentPath.doesPathContainNoOverlap())):
-        print "Path went out of bounds/overlapped at depth",CurrentDepth," with path",currentPath.toString()
+        # print "Path went out of bounds/overlapped at depth",CurrentDepth," with path",currentPath.toString()
         currentPath.unwindByOneSquareAndDir()
         StartingSquare.visited = False
         return
     # path seems valid, check if we hit 9 squares
     if (CurrentDepth == 9):
-        print "Reached depth 9! (string): ",PathString
-        print "Reached depth 9! (object): ",currentPath.toString()
+        # print depthNineCount,"Reached depth 9! (string): ",PathString
+        depthNineCount = depthNineCount + 1
+        # print "Reached depth 9! (object): ",currentPath.toString()
     if CurrentDepth > maxDepthReached:
         recordLongestPath(CurrentDepth, currentPath)
     # the recursion loop
@@ -136,7 +140,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
                     for rotation in 1,2,3,4:
                         nextSquare.rotateClockWise();
                         # print CurrentDepth,":",Path.PathDebugVisualization(CurrentDepth),": [",StartingSquare.getShortDescription(),"] ->",Direction.Padded(MoveDirection)," \t-> [",nextSquare.getShortDescription(),"]"
-                        print PathString
+                        # print PathString
                         if areCompatible(StartingSquare, nextSquare, MoveDirection):
                             findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
     # unmark, so we can revisit on a different sibling path
@@ -159,4 +163,5 @@ for potentialStartSquare in squaresList:
     print "-----Next Starting Square:",potentialStartSquare.getShortDescription(),"...-----"
     findAdjacentSquare(potentialStartSquare, 1, "", "")
 print "Max Depth reached was: ",maxDepthReached,", Path: ",maxDepthPath
+print "A total of",depthNineCount,"paths were found of depth 9."
 
