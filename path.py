@@ -109,6 +109,20 @@ class Path:
             return False
         return True
 
+    def pathGridRepresentation(self):
+        # lemma: all paths must begin in a corner; otherwise they would overlap
+        # initialize a 3x3 array
+        # start with the first square, populate [0,0]
+        # read the next direction:
+        #   if right, populate [1,0]
+        #   if down, populate [0,1]
+        #   if left, reverse all left/right directions in the string, then populate [1,0]
+        #   if up, reverse all up/down directions in the string, then populate [0,1]
+        # on future squares, never again reverse, just populate [x+1,y] or [x,y+1]
+
+    def doesPathGridContainInvalidEdges(self):
+        # using the grid representation, determine whether there are any edge mismatches
+
     @staticmethod
     def PathDebugVisualization(length):
         visualizedLength = ""
