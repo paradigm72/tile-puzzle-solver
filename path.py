@@ -38,6 +38,15 @@ class Path:
         # only return the directions
         return filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), self.Path)
 
+    def getNextSquare(self, squareNumber):
+        # the path alternates square, dir, square, dir, etc., so take only multiples of 2
+        return self.Path[squareNumber*2]
+
+    def getNextDirection(self, dirNumber):
+        # the path alternates square, dir, square, dir, etc., so take only multiples of,
+        # and make sure we get the odd remainder for the direction
+        return self.Path[(dirNumber*2) + 1]
+
     def toString(self):
         returnString = ""
         for squareOrDirection in self.Path:
@@ -110,10 +119,13 @@ class Path:
         return True
 
     def pathGridRepresentation(self):
-        # lemma: all paths must begin in a corner; otherwise they would overlap
+        # lemma: all paths must begin in a corner; otherwise they would eventually overlap
         # initialize a 3x3 array
+        grid = [[]]
         # start with the first square, populate [0,0]
+        grid[0, 0] = self.getNextSquare(0)
         # read the next direction:
+        nextDir = self.getNextDirection(0)
         #   if right, populate [1,0]
         #   if down, populate [0,1]
         #   if left, reverse all left/right directions in the string, then populate [1,0]
