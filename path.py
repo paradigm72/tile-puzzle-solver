@@ -40,12 +40,18 @@ class Path:
 
     def getNextSquare(self, squareNumber):
         # the path alternates square, dir, square, dir, etc., so take only multiples of 2
-        return self.Path[squareNumber*2]
+        indexOfThisSquare = squareNumber*2
+        if indexOfThisSquare > self.Path.length():
+            return None
+        return self.Path[indexOfThisSquare]
 
     def getNextDirection(self, dirNumber):
-        # the path alternates square, dir, square, dir, etc., so take only multiples of,
+        # the path alternates square, dir, square, dir, etc., so take only multiples of 2,
         # and make sure we get the odd remainder for the direction
-        return self.Path[(dirNumber*2) + 1]
+        indexOfThisDir = (dirNumber*2) + 1
+        if indexOfThisDir > self.Path.length():
+            return None
+        return self.Path[indexOfThisDir]
 
     def toString(self):
         returnString = ""
@@ -124,8 +130,12 @@ class Path:
         grid = [[]]
         # start with the first square, populate [0,0]
         grid[0, 0] = self.getNextSquare(0)
-        # read the next direction:
-        nextDir = self.getNextDirection(0)
+        while True:
+            # read the next direction:
+            nextDir = self.getNextDirection(0)
+            if nextDir == None:
+                print "Ran out of next directions to read"
+                break
         #   if right, populate [1,0]
         #   if down, populate [0,1]
         #   if left, reverse all left/right directions in the string, then populate [1,0]
@@ -133,6 +143,7 @@ class Path:
         # on future squares, never again reverse, just populate [x+1,y] or [x,y+1]
 
     def doesPathGridContainInvalidEdges(self):
+        return None
         # using the grid representation, determine whether there are any edge mismatches
 
     @staticmethod
