@@ -128,6 +128,7 @@ class Path:
         # lemma: all paths must begin in a corner; otherwise they would eventually overlap
         # initialize a 3x3 array
         grid = [[]]
+        firstMove = True
         # start with the first square, populate [0,0]
         grid[0, 0] = self.getNextSquare(0)
         while True:
@@ -136,11 +137,13 @@ class Path:
             if nextDir == None:
                 print "Ran out of next directions to read"
                 break
-        #   if right, populate [1,0]
-        #   if down, populate [0,1]
-        #   if left, reverse all left/right directions in the string, then populate [1,0]
-        #   if up, reverse all up/down directions in the string, then populate [0,1]
-        # on future squares, never again reverse, just populate [x+1,y] or [x,y+1]
+            # now we have a direction, so process it
+            if firstMove:
+                if nextDir == "Left":  # TODO; want to use the enum here, move it to a better spot
+                    # reverse all left/right directions in the string, so we always start top left
+                elif nextDir == "Up":
+                    # reverse all up/down directions in the string, so we always start top left
+            # otherwise (and for all future squares), never again reverse, just populate [x+1,y] or [x,y+1]
 
     def doesPathGridContainInvalidEdges(self):
         return None
