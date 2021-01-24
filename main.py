@@ -161,7 +161,7 @@ def recordLongestPath(CurrentDepth, currentPath):
 initialize()
 for potentialStartSquare in squaresList:
     print "-----Next Starting Square:",potentialStartSquare.getShortDescription(),"...-----"
-    findAdjacentSquare(potentialStartSquare, 1, "", "")
+    # findAdjacentSquare(potentialStartSquare, 1, "", "")
 print "Max Depth reached was: ",maxDepthReached,", Path: ",maxDepthPath
 print "A total of",depthNineCount,"paths were found of depth 9."
 

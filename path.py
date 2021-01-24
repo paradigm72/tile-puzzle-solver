@@ -96,18 +96,21 @@ class Path:
         pathSquaresOnly = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), self.Path)
         # print "PathArray = ",PathArray
         # loop through the nodes in PathString
-        x = 0
-        y = 0
-        OccupiedCoordinates = []
+        x = 10   # cannot have negative list indices, so start above 3
+        y = 10
+        OccupiedCoordinates = [[]]
         for node in pathSquaresOnly:
             # print OccupiedCoordinates
             # print "Node: ",node
             # check for duplicates, failure case if so
             # print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
-            if (str(x) + "," + str(y)) in OccupiedCoordinates:
-                return False
+            try:
+                if OccupiedCoordinates[x][y] == 1:
+                    return False
+            except IndexError:
+                return True  # if not found, those coordinates haven't been visited yet, i.e. not occupied
                 # mark this position as occupied
-            OccupiedCoordinates.append(str(x) + "," + str(y))
+            OccupiedCoordinates[x, y] =1
             # print "Marking " + (str(x) + "," + str(y)) + " as occupied."
             # move in the coordinate space
             if node == "Left":
@@ -120,34 +123,12 @@ class Path:
                 y = y - 1
             # check for duplicates one last time
         # print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
-        if (str(x) + "," + str(y)) in OccupiedCoordinates:
-            return False
+        try:
+            if OccupiedCoordinates[x][y] == 1:
+                return False
+        except IndexError:
+                return True  # if not found, those coordinates haven't been visited yet, i.e. not occupied
         return True
-
-    def pathGridRepresentation(self):
-        # lemma: all paths must begin in a corner; otherwise they would eventually overlap
-        # initialize a 3x3 array
-        grid = [[]]
-        firstMove = True
-        # start with the first square, populate [0,0]
-        grid[0, 0] = self.getNextSquare(0)
-        while True:
-            # read the next direction:
-            nextDir = self.getNextDirection(0)
-            if nextDir == None:
-                print "Ran out of next directions to read"
-                break
-            # now we have a direction, so process it
-            if firstMove:
-                if nextDir == "Left":  # TODO; want to use the enum here, move it to a better spot
-                    # reverse all left/right directions in the string, so we always start top left
-                elif nextDir == "Up":
-                    # reverse all up/down directions in the string, so we always start top left
-            # otherwise (and for all future squares), never again reverse, just populate [x+1,y] or [x,y+1]
-
-    def doesPathGridContainInvalidEdges(self):
-        return None
-        # using the grid representation, determine whether there are any edge mismatches
 
     @staticmethod
     def PathDebugVisualization(length):
