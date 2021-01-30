@@ -96,9 +96,9 @@ class Path:
         pathSquaresOnly = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), self.Path)
         # print "PathArray = ",PathArray
         # loop through the nodes in PathString
-        x = 10   # cannot have negative list indices, so start above 3
-        y = 10
-        OccupiedCoordinates = [[]]
+        x = 2   # cannot have negative list indices, so start at 2, leaving space for 1 and 0
+        y = 2
+        OccupiedCoordinates = [[0 for i in range(6)] for j in range(6)]
         for node in pathSquaresOnly:
             # print OccupiedCoordinates
             # print "Node: ",node
@@ -108,9 +108,9 @@ class Path:
                 if OccupiedCoordinates[x][y] == 1:
                     return False
             except IndexError:
-                return True  # if not found, those coordinates haven't been visited yet, i.e. not occupied
+                pass # if not found, those coordinates haven't been visited yet, i.e. not occupied
                 # mark this position as occupied
-            OccupiedCoordinates[x, y] =1
+            OccupiedCoordinates[x][y] = 1
             # print "Marking " + (str(x) + "," + str(y)) + " as occupied."
             # move in the coordinate space
             if node == "Left":
