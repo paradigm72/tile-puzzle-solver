@@ -94,6 +94,7 @@ class Path:
     # whether the path does not close in on itself
     def doesPathContainNoOverlap(self):
         pathDirsOnly = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), self.Path)
+        foundOverlap = False
         # print "PathArray = ",PathArray
         # loop through the nodes in PathString
         x = 2   # cannot have negative list indices, so start at 2, leaving space for 1 and 0
@@ -118,10 +119,10 @@ class Path:
             # print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
             try:
                 if OccupiedCoordinates[x][y] == 1:
-                    return False
+                    foundOverlap = True  # mark that we found an overlap, but we still want to build the grid
             except IndexError:
                 pass # if not found, those coordinates haven't been visited yet, i.e. not occupied
-        return True
+        return (foundOverlap == False)
 
     @staticmethod
     def PathDebugVisualization(length):
