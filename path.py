@@ -102,14 +102,7 @@ class Path:
         for node in pathDirsOnly:
             # print OccupiedCoordinates
             # print "Node: ",node
-            # check for duplicates, failure case if so
-            # print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
-            try:
-                if OccupiedCoordinates[x][y] == 1:
-                    return False
-            except IndexError:
-                pass # if not found, those coordinates haven't been visited yet, i.e. not occupied
-                # mark this position as occupied
+            # mark the current node as occupied
             OccupiedCoordinates[x][y] = 1
             # print "Marking " + (str(x) + "," + str(y)) + " as occupied."
             # move in the coordinate space
@@ -121,13 +114,13 @@ class Path:
                 y = y + 1
             if node == "Down":
                 y = y - 1
-            # check for duplicates one last time
-        # print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
-        try:
-            if OccupiedCoordinates[x][y] == 1:
-                return False
-        except IndexError:
-                return True  # if not found, those coordinates haven't been visited yet, i.e. not occupied
+            # check for duplicates, failure case if so
+            # print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
+            try:
+                if OccupiedCoordinates[x][y] == 1:
+                    return False
+            except IndexError:
+                pass # if not found, those coordinates haven't been visited yet, i.e. not occupied
         return True
 
     @staticmethod
