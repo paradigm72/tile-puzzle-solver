@@ -93,18 +93,20 @@ class Path:
 
     # whether the path does not close in on itself
     def doesPathContainNoOverlap(self):
-        pathDirsOnly = filter(lambda x: (x in ["Left", "Right", "Up", "Down"]), self.Path)
+        pathDirsOnly = self.getDirectionList()
+        pathSquaresOnly = self.getSquareList()
         foundOverlap = False
         # print "PathArray = ",PathArray
         # loop through the nodes in PathString
         x = 2   # cannot have negative list indices, so start at 2, leaving space for 1 and 0
         y = 2
-        OccupiedCoordinates = [[0 for i in range(6)] for j in range(6)]
+        index = 0  # which path entry we are currently adding
+        OccupiedCoordinates = [["" for i in range(6)] for j in range(6)]
         for node in pathDirsOnly:
             # print OccupiedCoordinates
             # print "Node: ",node
             # mark the current node as occupied
-            OccupiedCoordinates[x][y] = 1
+            OccupiedCoordinates[x][y] = pathSquaresOnly[index]
             # print "Marking " + (str(x) + "," + str(y)) + " as occupied."
             # move in the coordinate space
             if node == "Left":
@@ -115,10 +117,12 @@ class Path:
                 y = y + 1
             if node == "Down":
                 y = y - 1
+            # advance to the next index in the path
+            index = index + 1
             # check for duplicates, failure case if so
             # print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
             try:
-                if OccupiedCoordinates[x][y] == 1:
+                if len(OccupiedCoordinates[x][y]) == 4:
                     foundOverlap = True  # mark that we found an overlap, but we still want to build the grid
             except IndexError:
                 pass # if not found, those coordinates haven't been visited yet, i.e. not occupied
