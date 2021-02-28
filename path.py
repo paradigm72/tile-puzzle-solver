@@ -94,20 +94,14 @@ class Path:
     # whether the path does not close in on itself
     def doesPathContainNoOverlap(self):
         pathDirsOnly = self.getDirectionList()
-        pathSquaresOnly = self.getSquareList()
+        self.buildGridRepresentation()  # make sure we have built the grid view
         foundOverlap = False
         # print "PathArray = ",PathArray
         # loop through the nodes in PathString
         x = 2   # cannot have negative list indices, so start at 2, leaving space for 1 and 0
         y = 2
         index = 0  # which path entry we are currently adding
-        OccupiedCoordinates = [["" for i in range(6)] for j in range(6)]
         for node in pathDirsOnly:
-            # print OccupiedCoordinates
-            # print "Node: ",node
-            # mark the current node as occupied
-            OccupiedCoordinates[x][y] = pathSquaresOnly[index]
-            # print "Marking " + (str(x) + "," + str(y)) + " as occupied."
             # move in the coordinate space
             if node == "Left":
                 x = x - 1
@@ -122,11 +116,42 @@ class Path:
             # check for duplicates, failure case if so
             # print "Checking whether " + (str(x) + "," + str(y)) + " is occupied."
             try:
-                if len(OccupiedCoordinates[x][y]) == 4:
+                if ((self.OccupiedCoordinates[x][y]) == "****"):
                     foundOverlap = True  # mark that we found an overlap, but we still want to build the grid
             except IndexError:
                 pass # if not found, those coordinates haven't been visited yet, i.e. not occupied
         return (foundOverlap == False)
+
+    # set up OccupiedSquares as a grid representation, for use in overlap checking and nonlinear edge checking
+    def buildGridRepresentation(self):
+        pathDirsOnly = self.getDirectionList()
+        pathSquaresOnly = self.getSquareList()
+        self.OccupiedCoordinates = [["" for i in range(6)] for j in range(6)]
+        # print "PathArray = ",PathArray
+        # loop through the nodes in PathString
+        x = 2   # cannot have negative list indices, so start at 2, leaving space for 1 and 0
+        y = 2
+        index = 0  # which path entry we are currently adding
+        self.OccupiedCoordinates[x][y] = pathSquaresOnly[index]
+        for node in pathDirsOnly:
+            index = index + 1
+            # print OccupiedCoordinates
+            # print "Node: ",node
+            # mark the current node as occupied
+            if (len(self.OccupiedCoordinates[x][y]) == 4):
+                self.OccupiedCoordinates[x][y] = "****"  #error code meaning two squares tried to occupy this spot
+            else:
+                self.OccupiedCoordinates[x][y] = pathSquaresOnly[index]
+            # print "Marking " + (str(x) + "," + str(y)) + " as occupied."
+            # move in the coordinate space
+            if node == "Left":
+                x = x - 1
+            if node == "Right":
+                x = x + 1
+            if node == "Up":
+                y = y + 1
+            if node == "Down":
+                y = y - 1
 
     @staticmethod
     def PathDebugVisualization(length):
