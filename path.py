@@ -134,16 +134,9 @@ class Path:
         index = 0  # which path entry we are currently adding
         self.OccupiedCoordinates[x][y] = pathSquaresOnly[index]
         for node in pathDirsOnly:
-            index = index + 1
             # print OccupiedCoordinates
             # print "Node: ",node
-            # mark the current node as occupied
-            if (len(self.OccupiedCoordinates[x][y]) == 4):
-                self.OccupiedCoordinates[x][y] = "****"  #error code meaning two squares tried to occupy this spot
-            else:
-                self.OccupiedCoordinates[x][y] = pathSquaresOnly[index]
-            # print "Marking " + (str(x) + "," + str(y)) + " as occupied."
-            # move in the coordinate space
+        # move in the coordinate space
             if node == "Left":
                 x = x - 1
             if node == "Right":
@@ -152,6 +145,16 @@ class Path:
                 y = y + 1
             if node == "Down":
                 y = y - 1
+            # mark the current node as occupied
+            if (len(self.OccupiedCoordinates[x][y]) == 4):
+                self.OccupiedCoordinates[x][y] = "****"  #error code meaning two squares tried to occupy this spot
+            else:
+                try:
+                    self.OccupiedCoordinates[x][y] = pathSquaresOnly[index]
+                except IndexError:
+                    pass
+            # print "Marking " + (str(x) + "," + str(y)) + " as occupied."
+            index = index + 1
 
     @staticmethod
     def PathDebugVisualization(length):
