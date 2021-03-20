@@ -4,16 +4,16 @@
 
 # given the set of 9 squares, try each rotation by brute force
 
-import math
 from square import Square
 from path import Path
 
 # globals
-squaresList = [];
-currentPath = Path();
+squaresList = []
+currentPath = Path()
 maxDepthReached = 0
 maxDepthPath = ""
 depthNineCount = 0
+
 
 # static class for directional enums
 class Direction:
@@ -45,6 +45,7 @@ class Direction:
         if (testDir == Direction.Down):
             return  Direction.Up
 
+
 def doCodesMatch(code1, code2):
     # 48 is the ASCII offset between '1' and 'a'
     ascii1 = ord(code1)
@@ -53,10 +54,12 @@ def doCodesMatch(code1, code2):
         return True
     return False
 
+
 def isInverseDirection(dir1, dir2):
     if (Direction.Opposite(dir1) == dir2):
         return True
     return False
+
 
 def areCompatible(Square1, Square2, MoveDirection):
     if MoveDirection == Direction.Left:
@@ -82,9 +85,11 @@ def areCompatible(Square1, Square2, MoveDirection):
     else:
         return False
 
+
 def initialize():
     initializeSquares()
     maxDepthReached = 0
+
 
 def initializeSquares():
     squaresList.append(Square('dcb2'))
@@ -97,6 +102,7 @@ def initializeSquares():
     squaresList.append(Square('4ba1'))
     squaresList.append(Square('4acb'))
 
+
 def findAllNotYetVisitedSquares():
     matchesArray = []
     for potentialNextSquare in squaresList:
@@ -104,6 +110,7 @@ def findAllNotYetVisitedSquares():
             # no longer checking compatibility here; it needs to be inside the loop
             matchesArray.append(potentialNextSquare)
     return matchesArray
+
 
 def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirection):
     global depthNineCount
@@ -146,10 +153,11 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
     # unmark, so we can revisit on a different sibling path
     StartingSquare.visited = False
     # now that path is an object, we need to manually unwind by one when we leave this recursion level
-    if (CurrentDepth == 1):
+    if CurrentDepth == 1:
         currentPath.unwindByOneSquareOnly()
     else:
         currentPath.unwindByOneSquareAndDir()
+
 
 def recordLongestPath(CurrentDepth, currentPath):
     global maxDepthReached
@@ -157,11 +165,12 @@ def recordLongestPath(CurrentDepth, currentPath):
     maxDepthReached = CurrentDepth
     maxDepthPath = currentPath.toString()
 
+
 # implementation
 initialize()
 for potentialStartSquare in squaresList:
     print "-----Next Starting Square:",potentialStartSquare.getShortDescription(),"...-----"
-    # findAdjacentSquare(potentialStartSquare, 1, "", "")
+    findAdjacentSquare(potentialStartSquare, 1, "", "")
 print "Max Depth reached was: ",maxDepthReached,", Path: ",maxDepthPath
 print "A total of",depthNineCount,"paths were found of depth 9."
 

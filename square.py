@@ -23,7 +23,7 @@ class Square:
 
     @staticmethod
     def getMatchingCode(code):
-    # code is a char
+        # code is a char
         if (ord(code) > 60):     # if alpha, subtract 48 to get matching number
             return chr(ord(code) - 48)
         # code is an int

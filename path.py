@@ -156,6 +156,7 @@ class Path:
             # print "Marking " + (str(x) + "," + str(y)) + " as occupied."
             index = index + 1
 
+
     @staticmethod
     def PathDebugVisualization(length):
         visualizedLength = ""
