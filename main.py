@@ -143,11 +143,12 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
             # get a list of possible next squares that haven't been visited yet
             nextSquaresToMoveTo = findAllNotYetVisitedSquares()
             for nextSquare in nextSquaresToMoveTo:
-                if (nextSquare != None):
-                    for rotation in 1,2,3,4:
-                        nextSquare.rotateClockWise();
-                        # print CurrentDepth,":",Path.PathDebugVisualization(CurrentDepth),": [",StartingSquare.getShortDescription(),"] ->",Direction.Padded(MoveDirection)," \t-> [",nextSquare.getShortDescription(),"]"
-                        # print PathString
+                if (nextSquare is not None):
+                    for rotation in 1, 2, 3, 4:
+                        nextSquare.rotateClockWise()
+                        # print CurrentDepth,":",Path.PathDebugVisualization(CurrentDepth),": [",
+                        # StartingSquare.getShortDescription(),"] ->",Direction.Padded(MoveDirection)," \t-> [",
+                        # nextSquare.getShortDescription(),"]" print PathString
                         if areCompatible(StartingSquare, nextSquare, MoveDirection):
                             findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
     # unmark, so we can revisit on a different sibling path
@@ -169,8 +170,8 @@ def recordLongestPath(CurrentDepth, currentPath):
 # implementation
 initialize()
 for potentialStartSquare in squaresList:
-    print "-----Next Starting Square:",potentialStartSquare.getShortDescription(),"...-----"
+    print "-----Next Starting Square:", potentialStartSquare.getShortDescription(), "...-----"
     findAdjacentSquare(potentialStartSquare, 1, "", "")
-print "Max Depth reached was: ",maxDepthReached,", Path: ",maxDepthPath
-print "A total of",depthNineCount,"paths were found of depth 9."
+print "Max Depth reached was: ", maxDepthReached, ", Path: ", maxDepthPath
+print "A total of", depthNineCount, "paths were found of depth 9."
 

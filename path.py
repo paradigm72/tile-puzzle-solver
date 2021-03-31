@@ -24,11 +24,11 @@ class Path:
         self.Path.append(startSquare)
 
     def unwindByOneSquareAndDir(self):
-        del self.Path[-1]   # remove the last square
-        del self.Path[-1]   # remove the last direction
+        del self.Path[-1]  # remove the last square
+        del self.Path[-1]  # remove the last direction
 
     def unwindByOneSquareOnly(self):
-        del self.Path[-1]   # remove the last square
+        del self.Path[-1]  # remove the last square
 
     def getSquareList(self):
         # any array element that isn't a direction is a square
@@ -40,7 +40,7 @@ class Path:
 
     def getNextSquare(self, squareNumber):
         # the path alternates square, dir, square, dir, etc., so take only multiples of 2
-        indexOfThisSquare = squareNumber*2
+        indexOfThisSquare = squareNumber * 2
         if indexOfThisSquare > self.Path.length():
             return None
         return self.Path[indexOfThisSquare]
@@ -48,7 +48,7 @@ class Path:
     def getNextDirection(self, dirNumber):
         # the path alternates square, dir, square, dir, etc., so take only multiples of 2,
         # and make sure we get the odd remainder for the direction
-        indexOfThisDir = (dirNumber*2) + 1
+        indexOfThisDir = (dirNumber * 2) + 1
         if indexOfThisDir > self.Path.length():
             return None
         return self.Path[indexOfThisDir]
@@ -57,7 +57,7 @@ class Path:
         returnString = ""
         for squareOrDirection in self.Path:
             returnString = returnString + squareOrDirection + "-->"
-        returnString = returnString[:-3]   # strip the three characters - - > from the right end
+        returnString = returnString[:-3]  # strip the three characters - - > from the right end
         return returnString
 
     def isPathFullyInBounds(self):
@@ -70,10 +70,9 @@ class Path:
                 horizontalCounter = 0
                 verticalCounter = 0
                 # grab the slice of the array
-                subArrayToTest = pathSquaresOnly[start:end+1]
-                # debug
-                # print "Path Length=",len(PathArray),"Start=",start,"End=",end,"About to test array slice: ",subArrayToTest
-                # loop over each element in the slice
+                subArrayToTest = pathSquaresOnly[start:end + 1]
+                # debug print "Path Length=",len(PathArray),"Start=",start,"End=",end,"About to test array slice: ",
+                # subArrayToTest loop over each element in the slice
                 for strDirection in subArrayToTest:
                     # adjust the appropriate counter
                     if strDirection == "Left":
@@ -98,7 +97,7 @@ class Path:
         foundOverlap = False
         # print "PathArray = ",PathArray
         # loop through the nodes in PathString
-        x = 2   # cannot have negative list indices, so start at 2, leaving space for 1 and 0
+        x = 2  # cannot have negative list indices, so start at 2, leaving space for 1 and 0
         y = 2
         index = 0  # which path entry we are currently adding
         for node in pathDirsOnly:
@@ -119,7 +118,7 @@ class Path:
                 if ((self.OccupiedCoordinates[x][y]) == "****"):
                     foundOverlap = True  # mark that we found an overlap, but we still want to build the grid
             except IndexError:
-                pass # if not found, those coordinates haven't been visited yet, i.e. not occupied
+                pass  # if not found, those coordinates haven't been visited yet, i.e. not occupied
         return (foundOverlap == False)
 
     # set up OccupiedSquares as a grid representation, for use in overlap checking and nonlinear edge checking
@@ -136,7 +135,7 @@ class Path:
         for node in pathDirsOnly:
             # print OccupiedCoordinates
             # print "Node: ",node
-        # move in the coordinate space
+            # move in the coordinate space
             if node == "Left":
                 x = x - 1
             if node == "Right":
@@ -147,7 +146,7 @@ class Path:
                 y = y - 1
             # mark the current node as occupied
             if (len(self.OccupiedCoordinates[x][y]) == 4):
-                self.OccupiedCoordinates[x][y] = "****"  #error code meaning two squares tried to occupy this spot
+                self.OccupiedCoordinates[x][y] = "****"  # error code meaning two squares tried to occupy this spot
             else:
                 try:
                     self.OccupiedCoordinates[x][y] = pathSquaresOnly[index]
@@ -155,7 +154,6 @@ class Path:
                     pass
             # print "Marking " + (str(x) + "," + str(y)) + " as occupied."
             index = index + 1
-
 
     @staticmethod
     def PathDebugVisualization(length):
@@ -166,8 +164,3 @@ class Path:
             else:
                 visualizedLength = visualizedLength + " "
         return visualizedLength
-
-
-
-
-
