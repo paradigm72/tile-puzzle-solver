@@ -134,7 +134,8 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
     if (CurrentDepth == 9):
         # print depthNineCount,"Reached depth 9! (string): ",PathString
         depthNineCount = depthNineCount + 1
-        # print "Reached depth 9! (object): ",currentPath.toString()
+        print "Reached depth 9! (object): ", currentPath.toString()
+        currentPath.printGridRepresentation()
     if CurrentDepth > maxDepthReached:
         recordLongestPath(CurrentDepth, currentPath)
     # the recursion loop

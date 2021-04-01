@@ -155,6 +155,17 @@ class Path:
             # print "Marking " + (str(x) + "," + str(y)) + " as occupied."
             index = index + 1
 
+    def printGridRepresentation(self):
+        print "Final grid for this path:"
+        for y in range(6):
+            thisRowString = ""
+            for x in range(6):
+                if (len(self.OccupiedCoordinates[x][y]) == 4):
+                    thisRowString += self.OccupiedCoordinates[x][y] + "-"
+                else:
+                    thisRowString += "    -"
+            print thisRowString
+
     @staticmethod
     def PathDebugVisualization(length):
         visualizedLength = ""
