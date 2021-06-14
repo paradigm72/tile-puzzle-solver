@@ -142,9 +142,9 @@ class Path:
             if node == "Right":
                 x = x + 1
             if node == "Up":
-                y = y + 1
+                y = y - 1   # when printing, lower y values are towards the top
             if node == "Down":
-                y = y - 1
+                y = y + 1
             # mark the current node as occupied
             if (len(self.OccupiedCoordinates[x][y]) == 4):
                 self.OccupiedCoordinates[x][y] = "****"  # error code meaning two squares tried to occupy this spot
