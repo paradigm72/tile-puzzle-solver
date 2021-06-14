@@ -132,6 +132,7 @@ class Path:
         y = 2
         index = 0  # which path entry we are currently adding
         self.OccupiedCoordinates[x][y] = pathSquaresOnly[index]
+        index = index + 1
         for node in pathDirsOnly:
             # print OccupiedCoordinates
             # print "Node: ",node
