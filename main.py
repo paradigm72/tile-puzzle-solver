@@ -124,9 +124,15 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
     else:
         PathString = PathString + StartingSquare.getShortDescription()
         currentPath.addSquareOnly(StartingSquare.getShortDescription())
-    # if we now have an out-of-bounds or overlapping path, bail and unwind
-    if not (currentPath.isPathFullyInBounds() & (currentPath.doesPathContainNoOverlap())):
-        # print "Path went out of bounds/overlapped at depth",CurrentDepth," with path",currentPath.toString()
+    # if we now have an out-of-bounds, bail and unwind
+    if not (currentPath.isPathFullyInBounds()):
+        print "Path went out of bounds at depth",CurrentDepth," with path",currentPath.toString()
+        currentPath.unwindByOneSquareAndDir()
+        StartingSquare.visited = False
+        return
+    # if we now have an overlapping path, bail and unwind
+    if not ((currentPath.doesPathContainNoOverlap())):
+        print "Path overlapped at depth",CurrentDepth," with path",currentPath.toString()
         currentPath.unwindByOneSquareAndDir()
         StartingSquare.visited = False
         return
