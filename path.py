@@ -158,14 +158,24 @@ class Path:
 
     def printGridRepresentation(self):
         print "Final grid for this path:"
+        numOverlaps = 0
         for y in range(6):
             thisRowString = ""
             for x in range(6):
                 if (len(self.OccupiedCoordinates[x][y]) == 4):
+
+                    # track # overlaps, to know whether we missed an overlap in the recursive algorithm
+                    if ((self.OccupiedCoordinates[x][y]) == "****"):
+                        numOverlaps = numOverlaps + 1
+
                     thisRowString += self.OccupiedCoordinates[x][y] + "-"
                 else:
                     thisRowString += "    -"
             print thisRowString
+
+        # show the error about overlap count (set a breakpoint here)
+        if (numOverlaps > 1):
+            print "Logic error: overlapped more than once!!"
 
     @staticmethod
     def PathDebugVisualization(length):
