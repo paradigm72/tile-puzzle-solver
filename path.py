@@ -107,9 +107,9 @@ class Path:
             if node == "Right":
                 x = x + 1
             if node == "Up":
-                y = y + 1
-            if node == "Down":
                 y = y - 1
+            if node == "Down":
+                y = y + 1
             # advance to the next index in the path
             index = index + 1
             # check for duplicates, failure case if so
