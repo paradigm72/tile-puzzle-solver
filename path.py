@@ -177,6 +177,13 @@ class Path:
         if (numOverlaps > 1):
             print "Logic error: overlapped more than once!!"
 
+
+    def checkLinearMatches(self):
+        return
+        # 2d loop through the grid visualization,
+        # finding squares, and then when one is found,
+        # # check compatibility with its four neighbors (null always passes)
+
     @staticmethod
     def PathDebugVisualization(length):
         visualizedLength = ""
