@@ -4,6 +4,7 @@
 
 # given the set of 9 squares, try each rotation by brute force
 from direction import Direction
+from lib import doCodesMatch
 from square import Square
 from path import Path
 
@@ -14,50 +15,15 @@ maxDepthReached = 0
 maxDepthPath = ""
 depthNineCount = 0
 
-def doCodesMatch(code1, code2):
-    # 48 is the ASCII offset between '1' and 'a'
-    ascii1 = ord(code1)
-    ascii2 = ord(code2)
-    if (ord(code1) - 48 == ord(code2)) or (ord(code2) - 48 == ord(code1)):
-        return True
-    return False
-
 
 def isInverseDirection(dir1, dir2):
     if (Direction.Opposite(dir1) == dir2):
         return True
     return False
 
-
-def areCompatible(Square1, Square2, MoveDirection):
-    if MoveDirection == Direction.Left:
-        if doCodesMatch(Square1.layout[3], Square2.layout[1]):
-            return True
-        else:
-            return False
-    elif MoveDirection == Direction.Down:
-        if doCodesMatch(Square1.layout[2], Square2.layout[0]):
-            return True
-        else:
-            return False
-    elif MoveDirection == Direction.Right:
-        if doCodesMatch(Square1.layout[1], Square2.layout[3]):
-            return True
-        else:
-            return False
-    elif MoveDirection == Direction.Up:
-        if doCodesMatch(Square1.layout[0], Square2.layout[2]):
-            return True
-        else:
-            return False
-    else:
-        return False
-
-
 def initialize():
     initializeSquares()
     maxDepthReached = 0
-
 
 def initializeSquares():
     squaresList.append(Square('dcb2'))
@@ -124,7 +90,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
                         # print CurrentDepth,":",Path.PathDebugVisualization(CurrentDepth),": [",
                         # StartingSquare.getShortDescription(),"] ->",Direction.Padded(MoveDirection)," \t-> [",
                         # nextSquare.getShortDescription(),"]" print PathString
-                        if areCompatible(StartingSquare, nextSquare, MoveDirection):
+                        if StartingSquare.isCompatibleInDirection(nextSquare, MoveDirection):
                             findAdjacentSquare(nextSquare, CurrentDepth + 1, PathString, MoveDirection)
     # unmark, so we can revisit on a different sibling path
     StartingSquare.visited = False

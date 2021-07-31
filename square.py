@@ -1,4 +1,5 @@
 from direction import Direction
+from lib import doCodesMatch
 
 # individual square
 class Square:
@@ -32,26 +33,26 @@ class Square:
         else:   # otherwise numeric, add 48 to get alpha
             return chr(int(code) + 48 + 48)
 
-    # def isCompatibleInDirection(self, testSquare, MoveDirection):
-    #     if MoveDirection == Direction.Left:
-    #         if doCodesMatch(Square1.layout[3], Square2.layout[1]):
-    #             return True
-    #         else:
-    #             return False
-    #     elif MoveDirection == Direction.Down:
-    #         if doCodesMatch(Square1.layout[2], Square2.layout[0]):
-    #             return True
-    #         else:
-    #             return False
-    #     elif MoveDirection == Direction.Right:
-    #         if doCodesMatch(Square1.layout[1], Square2.layout[3]):
-    #             return True
-    #         else:
-    #             return False
-    #     elif MoveDirection == Direction.Up:
-    #         if doCodesMatch(Square1.layout[0], Square2.layout[2]):
-    #             return True
-    #         else:
-    #             return False
-    #     else:
-    #         return False
+    def isCompatibleInDirection(self, testSquare, MoveDirection):
+        if MoveDirection == Direction.Left:
+            if doCodesMatch(self.layout[3], testSquare.layout[1]):
+                return True
+            else:
+                return False
+        elif MoveDirection == Direction.Down:
+            if doCodesMatch(self.layout[2], testSquare.layout[0]):
+                return True
+            else:
+                return False
+        elif MoveDirection == Direction.Right:
+            if doCodesMatch(self.layout[1], testSquare.layout[3]):
+                return True
+            else:
+                return False
+        elif MoveDirection == Direction.Up:
+            if doCodesMatch(self.layout[0], testSquare.layout[2]):
+                return True
+            else:
+                return False
+        else:
+            return False
