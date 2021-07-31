@@ -1,3 +1,5 @@
+from direction import Direction
+
 # individual square
 class Square:
     def __init__(self, layout):
@@ -29,3 +31,27 @@ class Square:
         # code is an int
         else:   # otherwise numeric, add 48 to get alpha
             return chr(int(code) + 48 + 48)
+
+    # def isCompatibleInDirection(self, testSquare, MoveDirection):
+    #     if MoveDirection == Direction.Left:
+    #         if doCodesMatch(Square1.layout[3], Square2.layout[1]):
+    #             return True
+    #         else:
+    #             return False
+    #     elif MoveDirection == Direction.Down:
+    #         if doCodesMatch(Square1.layout[2], Square2.layout[0]):
+    #             return True
+    #         else:
+    #             return False
+    #     elif MoveDirection == Direction.Right:
+    #         if doCodesMatch(Square1.layout[1], Square2.layout[3]):
+    #             return True
+    #         else:
+    #             return False
+    #     elif MoveDirection == Direction.Up:
+    #         if doCodesMatch(Square1.layout[0], Square2.layout[2]):
+    #             return True
+    #         else:
+    #             return False
+    #     else:
+    #         return False

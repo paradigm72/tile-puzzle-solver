@@ -1,0 +1,29 @@
+# static class for directional enums
+class Direction:
+    Left = "Left"
+    Right = "Right"
+    Down = "Down"
+    Up = "Up"
+
+    @staticmethod
+    def Padded(testDir):
+        if testDir == Direction.Right:
+            return testDir
+        elif testDir == Direction.Left:
+            return testDir + " "
+        elif testDir == Direction.Down:
+            return testDir + " "
+        elif testDir == Direction.Up:
+            return testDir + "   "
+        return ""
+
+    @staticmethod
+    def Opposite(testDir):
+        if (testDir == Direction.Left):
+            return Direction.Right
+        if (testDir == Direction.Right):
+            return Direction.Left
+        if (testDir == Direction.Up):
+            return Direction.Down
+        if (testDir == Direction.Down):
+            return  Direction.Up

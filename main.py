@@ -3,7 +3,7 @@
 # a=bluetoptulips, b=bluetopdaisys, c=whitetophearts, d=whitetopflowers
 
 # given the set of 9 squares, try each rotation by brute force
-
+from direction import Direction
 from square import Square
 from path import Path
 
@@ -13,38 +13,6 @@ currentPath = Path()
 maxDepthReached = 0
 maxDepthPath = ""
 depthNineCount = 0
-
-
-# static class for directional enums
-class Direction:
-    Left = "Left"
-    Right = "Right"
-    Down = "Down"
-    Up = "Up"
-
-    @staticmethod
-    def Padded(testDir):
-        if testDir == Direction.Right:
-            return testDir
-        elif testDir == Direction.Left:
-            return testDir + " "
-        elif testDir == Direction.Down:
-            return testDir + " "
-        elif testDir == Direction.Up:
-            return testDir + "   "
-        return ""
-
-    @staticmethod
-    def Opposite(testDir):
-        if (testDir == Direction.Left):
-            return Direction.Right
-        if (testDir == Direction.Right):
-            return Direction.Left
-        if (testDir == Direction.Up):
-            return Direction.Down
-        if (testDir == Direction.Down):
-            return  Direction.Up
-
 
 def doCodesMatch(code1, code2):
     # 48 is the ASCII offset between '1' and 'a'
