@@ -1,3 +1,6 @@
+from square import Square
+from direction import Direction
+
 class Path:
     def __init__(self):
         self.Path = []
@@ -178,11 +181,28 @@ class Path:
             print "Logic error: overlapped more than once!!"
 
 
-    def checkLinearMatches(self):
-        return
-        # 2d loop through the grid visualization,
-        # finding squares, and then when one is found,
-        # # check compatibility with its four neighbors (null always passes)
+    def areAllLinearMatchesValid(self):
+        # check each square
+        for y in range(6):
+            for x in range(6):
+                currentSquareLayout = self.OccupiedCoordinates[x][y]
+                # don't check nulls
+                if (currentSquareLayout == ""):
+                    pass
+                # check each adjacent direction
+                currentSquare = Square(currentSquareLayout)
+                # BEGIN 4x DIRECTION BLOCK
+                try:
+                    adjacentSquareLayout = self.OccupiedCoordinates[x-1][y]
+                except IndexError:
+                    pass  # if off the grid, just pass; never invalid to be on the edge
+                adjacentSquare = Square(adjacentSquareLayout)
+                # not sure if this is the right Direction
+                if (currentSquare.isCompatibleInDirection(adjacentSquare, Direction.Left)):
+                    pass
+                else:
+                    return False
+                # END 4X DIRECTION BLOCK
 
     @staticmethod
     def PathDebugVisualization(length):
