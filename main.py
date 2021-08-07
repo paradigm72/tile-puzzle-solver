@@ -70,6 +70,12 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
         currentPath.unwindByOneSquareAndDir()
         StartingSquare.visited = False
         return
+    # if we now have a path with a linear edge error, bail and unwind
+    if not ((currentPath.areAllLinearMatchesValid())):
+        print "Path had a linear edge mismatch at depth",CurrentDepth," with path",currentPath.toString()
+        currentPath.unwindByOneSquareAndDir()
+        StartingSquare.visited = False
+        return
     # path seems valid, check if we hit 9 squares
     if (CurrentDepth == 9):
         # print depthNineCount,"Reached depth 9! (string): ",PathString

@@ -187,22 +187,26 @@ class Path:
             for x in range(6):
                 currentSquareLayout = self.OccupiedCoordinates[x][y]
                 # don't check nulls
-                if (currentSquareLayout == ""):
-                    pass
+                if (currentSquareLayout == ''):
+                    continue
                 # check each adjacent direction
                 currentSquare = Square(currentSquareLayout)
                 # BEGIN 4x DIRECTION BLOCK
                 try:
                     adjacentSquareLayout = self.OccupiedCoordinates[x-1][y]
                 except IndexError:
-                    pass  # if off the grid, just pass; never invalid to be on the edge
+                    continue  # if off the grid, just pass; never invalid to be on the edge
+                # if it's an empty spot, valid
+                if (adjacentSquareLayout == ''):
+                    continue
                 adjacentSquare = Square(adjacentSquareLayout)
                 # not sure if this is the right Direction
                 if (currentSquare.isCompatibleInDirection(adjacentSquare, Direction.Left)):
-                    pass
+                    continue
                 else:
                     return False
                 # END 4X DIRECTION BLOCK
+        return True
 
     @staticmethod
     def PathDebugVisualization(length):
