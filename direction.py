@@ -26,7 +26,7 @@ class Direction:
         if (testDir == Direction.Up):
             return Direction.Down
         if (testDir == Direction.Down):
-            return  Direction.Up
+            return Direction.Up
 
     @staticmethod
     def StepCoordsInDirection(testDir, x, y):

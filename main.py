@@ -4,7 +4,6 @@
 
 # given the set of 9 squares, try each rotation by brute force
 from direction import Direction
-from lib import doCodesMatch
 from square import Square
 from path import Path
 
@@ -21,9 +20,10 @@ def isInverseDirection(dir1, dir2):
         return True
     return False
 
+
 def initialize():
     initializeSquares()
-    maxDepthReached = 0
+
 
 def initializeSquares():
     squaresList.append(Square('dcb2'))
@@ -72,7 +72,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
         return
     # if we now have a path with a linear edge error, bail and unwind
     if not ((currentPath.areAllLinearMatchesValid())):
-        print "Path had a linear edge mismatch at depth",CurrentDepth," with path",currentPath.toString()
+        # print "Path had a linear edge mismatch at depth", CurrentDepth, " with path", currentPath.toString()
         currentPath.unwindByOneSquareAndDir()
         StartingSquare.visited = False
         return
@@ -83,7 +83,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
         print "Reached depth 9! (object): ", currentPath.toString()
         currentPath.printGridRepresentation()
     if CurrentDepth > maxDepthReached:
-        recordLongestPath(CurrentDepth, currentPath)
+        recordLongestPath(CurrentDepth)
     # the recursion loop
     for MoveDirection in [Direction.Left, Direction.Right, Direction.Down, Direction.Up]:
         if (not (isInverseDirection(MoveDirection, PrevMoveDirection))):
@@ -107,7 +107,7 @@ def findAdjacentSquare(StartingSquare, CurrentDepth, PathString, PrevMoveDirecti
         currentPath.unwindByOneSquareAndDir()
 
 
-def recordLongestPath(CurrentDepth, currentPath):
+def recordLongestPath(CurrentDepth):
     global maxDepthReached
     global maxDepthPath
     maxDepthReached = CurrentDepth
@@ -121,4 +121,3 @@ for potentialStartSquare in squaresList:
     findAdjacentSquare(potentialStartSquare, 1, "", "")
 print "Max Depth reached was: ", maxDepthReached, ", Path: ", maxDepthPath
 print "A total of", depthNineCount, "paths were found of depth 9."
-
