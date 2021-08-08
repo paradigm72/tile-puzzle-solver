@@ -192,19 +192,20 @@ class Path:
                 # check each adjacent direction
                 currentSquare = Square(currentSquareLayout)
                 # BEGIN 4x DIRECTION BLOCK
-                try:
-                    adjacentSquareLayout = self.OccupiedCoordinates[x-1][y]
-                except IndexError:
-                    continue  # if off the grid, just pass; never invalid to be on the edge
-                # if it's an empty spot, valid
-                if (adjacentSquareLayout == ''):
-                    continue
-                adjacentSquare = Square(adjacentSquareLayout)
-                # not sure if this is the right Direction
-                if (currentSquare.isCompatibleInDirection(adjacentSquare, Direction.Left)):
-                    continue
-                else:
-                    return False
+                for testDirection in Direction.Left, Direction.Right, Direction.Up, Direction.Down:
+                    try:
+                        adjacentX, adjacentY = Direction.StepCoordsInDirection(testDirection, x, y)
+                        adjacentSquareLayout = self.OccupiedCoordinates[adjacentX][adjacentY]
+                    except IndexError:
+                        continue  # if off the grid, just pass; never invalid to be on the edge
+                    # if it's an empty spot, valid
+                    if (adjacentSquareLayout == ''):
+                        continue
+                    adjacentSquare = Square(adjacentSquareLayout)
+                    if (currentSquare.isCompatibleInDirection(adjacentSquare, testDirection)):
+                        continue
+                    else:
+                        return False
                 # END 4X DIRECTION BLOCK
         return True
 
