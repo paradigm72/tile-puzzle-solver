@@ -1,4 +1,4 @@
-import main
+import main, lib
 from testFramework import assertThat, resultToDisplay
 
 
@@ -28,9 +28,9 @@ def testInverseDirection():
 
 def testDoCodesMatch():
     outcome = True
-    outcome = outcome & routeAssertion("main.doCodesMatch(\"2\",\"b\")")
-    outcome = outcome & routeAssertion("main.doCodesMatch(\"b\",\"2\")")
-    outcome = outcome & routeAssertion("main.doCodesMatch(\"5\",\"e\")")
+    outcome = outcome & routeAssertion("lib.doCodesMatch(\"2\",\"b\")")
+    outcome = outcome & routeAssertion("lib.doCodesMatch(\"b\",\"2\")")
+    outcome = outcome & routeAssertion("lib.doCodesMatch(\"5\",\"e\")")
     print "Test 'do codes match'", resultToDisplay(outcome)
 
 
@@ -98,11 +98,9 @@ def testSquareCompatibility():
     objectStore.append(main.Square('abaa'))
     objectStore.append(main.Square('4442'))
     outcome = True
-    outcome = outcome & routeAssertion("main.areCompatible(objectStore[0],objectStore[1],main.Direction.Right)",
-                                       objectStore)
-    outcome = outcome & routeAssertion("not (main.areCompatible(objectStore[0],objectStore[1],7))", objectStore)
-    outcome = outcome & routeAssertion("not (main.areCompatible(objectStore[0],objectStore[1],main.Direction.Left))",
-                                       objectStore)
+    outcome = outcome & routeAssertion("objectStore[0].isCompatibleInDirection(objectStore[1],main.Direction.Right)", objectStore)
+    outcome = outcome & routeAssertion("not (objectStore[0].isCompatibleInDirection(objectStore[1], main.Direction.Down))", objectStore)
+    outcome = outcome & routeAssertion("not (objectStore[0].isCompatibleInDirection(objectStore[1], main.Direction.Left))", objectStore)
     print "Test square compatibility: ", resultToDisplay(outcome)
 
 
